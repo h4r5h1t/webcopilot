@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  [WebCopilot](https://github.com/h4r5h1t-hrs/webcopilot/)
+  <a href="https://github.com/h4r5h1t-hrs/webcopilot/">WebCopilot</a>
 </h1>
       
 <h4 align="center">An automation tool that enumerates subdomains then filters out xss, sqli, open redirect, lfi, ssrf and rce parameters and then scans for vulnerabilities.
@@ -8,10 +8,10 @@
 
 <p align="center">
 <a href="https://twitter.com/h4r5h1t_hrs"><img src="https://img.shields.io/twitter/follow/h4r5h1t_hrs?style=social"></a>
+  <a href="https://github.com/h4r5h1t-hrs?tab=followers"><img src="https://img.shields.io/github/followers/h4r5h1t-hrs?style=social"></a>
 <a href="https://github.com/h4r5h1t-hrs/webcopilot/issues"><img src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat"></a>
 <a href="https://github.com/h4r5h1t-hrs/webcopilot/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg"></a>
 <a href="#"><img src="https://img.shields.io/badge/Made%20with-Bash-1f425f.svg"></a>
-<a href="https://github.com/h4r5h1t-hrs?tab=followers"><img src="https://img.shields.io/github/followers/h4r5h1t-hrs?style=social"></a>
 <a href="#"><img src="https://madewithlove.org.in/badge.svg"></a>
 </p>
 
@@ -20,29 +20,29 @@ This tool is inspired by [ROX4R](https://github.com/R0X4R/) work.<br/>
 
 The script first enumerates all the subdomains of the given target domain using assetfinder, sublister, subfinder, amass, findomain, hackertarget, riddler and crt then do active subdomain enumeration using SecLists wordlist then filters out all the live subdomains using dnsx then it extract titles of the subdomains using httpx & scans for subdomain takeover using subjack. Then it uses gauplus & waybackurls to crawl all the endpoints of the given subdomains then it use gf patterns to filters out xss, lfi, ssrf, sqli, open redirect & rce parameters from that given subdomains, and then it scans for vulnerabilities on the subdomains using different open-source tools (like kxss, dalfox, openredirex, nuclei, etc...). Then it'll print out the result of the scan and save all the output in a specified directory. <br/>
 
-###Installation
+<h3>Installation</h3>
 
-**Requirements:** Git, Golang and Python3.
+**Requirements:** Git, Golang and Python3.<br/>
 **Tools Used:**<br/>
 
 [SubFinder](https://github.com/projectdiscovery/subfinder) •
-[Sublist3r](https://github.com/aboul3la/Sublist3r)
-[GF Patterns](https://github.com/1ndianl33t/Gf-Patterns)
-[OpenRedireX](https://github.com/devanshbatham/OpenRedireX)
-[dnsx](https://github.com/projectdiscovery/dnsx)
-[Assetfinder](https://github.com/tomnomnom/assetfinder)
-[HTTPX](https://github.com/projectdiscovery/httpx)
-[Kxss](https://github.com/Emoe/kxss)
-[QSreplace](https://github.com/tomnomnom/qsreplace)
-[Nuclei](https://github.com/projectdiscovery/nuclei)
-[Dalfox](https://github.com/hahwul/dalfox)
-[anew](https://github.com/tomnomnom/anew)
-[JQ]()
-[Aquatone](https://github.com/michenriksen/aquatone)
-[urldedupe](https://github.com/ameenmaali/urldedupe)
-[Amass](https://github.com/OWASP/Amass)
-[Gauplus](https://github.com/bp0lr/gauplus)
-[waybackurls]
+[Sublist3r](https://github.com/aboul3la/Sublist3r) •
+[GF Patterns](https://github.com/1ndianl33t/Gf-Patterns) •
+[OpenRedireX](https://github.com/devanshbatham/OpenRedireX) •
+[dnsx](https://github.com/projectdiscovery/dnsx) •
+[Assetfinder](https://github.com/tomnomnom/assetfinder) •
+[HTTPX](https://github.com/projectdiscovery/httpx) •
+[Kxss](https://github.com/Emoe/kxss) •
+[QSreplace](https://github.com/tomnomnom/qsreplace) •
+[Nuclei](https://github.com/projectdiscovery/nuclei) •
+[Dalfox](https://github.com/hahwul/dalfox) •
+[anew](https://github.com/tomnomnom/anew) •
+[JQ](https://github.com/stedolan/jq) •
+[Aquatone](https://github.com/michenriksen/aquatone) •
+[urldedupe](https://github.com/ameenmaali/urldedupe) •
+[Amass](https://github.com/OWASP/Amass) •
+[Gauplus](https://github.com/bp0lr/gauplus) •
+[waybackurls](https://github.com/tomnomnom/waybackurls) •
 [crlfuzz](https://github.com/dwisiswant0/crlfuzz)
   
 ```bash
@@ -51,7 +51,7 @@ g!2m0:~ apt install git
 g!2m0:~ git clone https://github.com/h4r5h1t-hrs/webcopilot && cd webcopilot/ && chmod +x webcopilot install.sh && mv webcopilot /usr/bin/ && ./install.sh
 ```
 
-###Usage
+<h3>Usage</h3>
 
 ```js
              
