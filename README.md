@@ -84,18 +84,18 @@ git clone https://github.com/h4r5h1t-hrs/webcopilot && cd webcopilot/ && chmod +
 <a href="https://github.com/projectdiscovery/subfinder">SubFinder</a> • 
 <a href="https://github.com/aboul3la/Sublist3r">Sublist3r</a> •
 <a href="https://github.com/Findomain/Findomain">Findomain</a> •
-<a href="https://github.com/1ndianl33t/Gf-Patterns">gf Patterns</a> •
+<a href="https://github.com/tomnomnom/gf">gf</a> •
 <a href="https://github.com/devanshbatham/OpenRedireX">OpenRedireX</a> •
 <a href="https://github.com/projectdiscovery/dnsx">dnsx</a> •
-<a href="https://github.com/tomnomnom/assetfinder">Assetfinder</a> •
-<a href="https://github.com/projectdiscovery/httpx">HTTPX</a> •
-<a href="https://github.com/Emoe/kxss">Kxss</a> •
+<a href="https://github.com/tomnomnom/assetfinder">assetfinder</a> •
+<a href="https://github.com/projectdiscovery/httpx">httpx</a> •
+<a href="https://github.com/Emoe/kxss">kxss</a> •
 <a href="https://github.com/tomnomnom/qsreplace">qsreplace</a> •
 <a href="https://github.com/projectdiscovery/nuclei">Nuclei</a> •
-<a href="https://github.com/hahwul/dalfox">Dalfox</a> •
+<a href="https://github.com/hahwul/dalfox">dalfox</a> •
 <a href="https://github.com/tomnomnom/anew">anew</a> •
 <a href="https://github.com/stedolan/jq">jq</a> •
-<a href="https://github.com/michenriksen/aquatone">Aquatone</a> •
+<a href="https://github.com/michenriksen/aquatone">aquatone</a> •
 <a href="https://github.com/ameenmaali/urldedupe">urldedupe</a> •
 <a href="https://github.com/OWASP/Amass">Amass</a> •
 <a href="https://github.com/bp0lr/gauplus">gauplus</a> •
@@ -218,13 +218,11 @@ Time:    30-08-2021 15:10:00
 ---
 
 ### Acknowledgement
-WebCopilot is inspired from [Garud](https://github.com/R0X4R/Garud) & [Pinaak](https://github.com/R0X4R/Pinaak).  
+WebCopilot is inspired from [Garud](https://github.com/R0X4R/Garud) & [Pinaak](https://github.com/R0X4R/Pinaak) by [ROX4R](https://github.com/R0X4R/).  
 
 #### Thanks to the authors of the tools & wordlists used in this script.
 
-<p align="center"><a href="https://github.com/aboul3la">@aboul3la</a> <a href="https://github.com/tomnomnom">@tomnomnom</a> <a href="https://github.com/lc">@lc</a> <a href="https://github.com/hahwul">@hahwul</a> <a href="https://github.com/projectdiscovery">@projectdiscovery</a> <a href="https://github.com/maurosoria">@maurosoria</a> <a href="https://github.com/shelld3v">@shelld3v</a> <a href="https://github.com/devanshbatham">@devanshbatham</a> <a href="https://github.com/michenriksen">@michenriksen</a> <a href="https://github.com/defparam/">@defparam</a> <a href="https://github.com/projectdiscovery">@projectdiscovery</a> <a href="https://github.com/bp0lr/">@bp0lr</a> <a href="https://github.com/ameenmaali">@ameenmaali</a> <a href="https://github.com/dwisiswant0">@dwisiswant0</a> <a href="https://github.com/OWASP/">@OWASP</a> <a href="https://github.com/Edu4rdSHL">Edu4rdSHL</a> <a href="https://github.com/danielmiessler">danielmiessler</a> <a href="https://github.com/1ndianl33t">@1ndianl33t</a></p>
-
-**Special Thanks to [ROX4R](https://github.com/R0X4R/)**
+[@aboul3la](https://github.com/aboul3la) [@tomnomnom](https://github.com/tomnomnom) [@lc](https://github.com/lc) [@hahwul](https://github.com/hahwul) [@projectdiscovery](https://github.com/projectdiscovery) [@maurosoria](https://github.com/maurosoria) [@shelld3v](https://github.com/shelld3v) [@devanshbatham](https://github.com/devanshbatham) [@michenriksen](https://github.com/michenriksen) [@defparam](https://github.com/defparam/) [@projectdiscovery](https://github.com/projectdiscovery) [@bp0lr](https://github.com/bp0lr/) [@ameenmaali](https://github.com/ameenmaali) [@dwisiswant0](https://github.com/dwisiswant0) [@OWASP](https://github.com/OWASP/) [Edu4rdSHL](https://github.com/Edu4rdSHL) [danielmiessler](https://github.com/danielmiessler) [@1ndianl33t](https://github.com/1ndianl33t) [ROX4R](https://github.com/R0X4R/)
 
 <table>
 <td>
