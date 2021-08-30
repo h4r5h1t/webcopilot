@@ -126,7 +126,9 @@ The `-x` command can be used to exclude out of scope domains.
 g!2m0:~ echo out.bugcrowd.com > excludeDomain.txt
 g!2m0:~ webcopilot -d bugcrowd.com -o bugcrowd -t 333 -x excludeDomain.txt -b testServer.xss
 ```
-```console
+---
+
+```js
 g!2m0:~ webcopilot -d bugcrowd.com - bugcrowd
 
 
@@ -149,7 +151,7 @@ g!2m0:~ webcopilot -d bugcrowd.com - bugcrowd
 
 
 Target:  bugcrowd.com
-Output:  /mnt/c/Users/harsh/Projects/demoweb/bugcrowd
+Output:  /home/gizmo/targets/bugcrowd
 Threads: 100
 Server:  False
 Exclude: False
