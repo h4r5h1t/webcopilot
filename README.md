@@ -1,70 +1,58 @@
-<h1 align="center">
-  <br>
-  <a href="https://github.com/h4r5h1t-hrs/webcopilot/">WebCopilot</a>
-</h1>
-      
-<h4 align="center">An automation tool that enumerates subdomains then filters out xss, sqli, open redirect, lfi, ssrf and rce parameters and then scans for vulnerabilities.
-</h4>
+<h1 align="center"><a href="https://github.com/h4r5h1t-hrs/webcopilot/">WebCopilot</a></h1>
+<h4 align="center">An automation tool that enumerate subdomains then filters out xss, sqli, open redirect, lfi, ssrf and rce parameters and then scans for vulnerabilities.</h4>
 
 <p align="center">
 <a href="https://twitter.com/h4r5h1t_hrs"><img src="https://img.shields.io/twitter/follow/h4r5h1t_hrs?style=social"></a>
-  <a href="https://github.com/h4r5h1t-hrs?tab=followers"><img src="https://img.shields.io/github/followers/h4r5h1t-hrs?style=social"></a>
+<a href="https://github.com/h4r5h1t-hrs?tab=followers"><img src="https://img.shields.io/github/followers/h4r5h1t-hrs?style=social"></a>
 <a href="https://github.com/h4r5h1t-hrs/webcopilot/issues"><img src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat"></a>
 <a href="https://github.com/h4r5h1t-hrs/webcopilot/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg"></a>
 <a href="#"><img src="https://img.shields.io/badge/Made%20with-Bash-1f425f.svg"></a>
 <a href="#"><img src="https://madewithlove.org.in/badge.svg"></a>
 </p>
 
+<p align="center">
+  <a href="#features">Features</a> •
+  <a href="#installing-webCopilot">Installation</a> •
+  <a href="#usage">Usage</a> •
+  <a href="#running-webcopilot">WebCopilot</a> •
+  <a href="#tools-used">Tools Used</a> •
+  <a href="#acknowledgement">Acknowledgement</a>
+</p>
+
 ---
-This tool is inspired by [ROX4R](https://github.com/R0X4R/) work.<br/> 
 
-The script first enumerates all the subdomains of the given target domain using assetfinder, sublister, subfinder, amass, findomain, hackertarget, riddler and crt then do active subdomain enumeration using SecLists wordlist then filters out all the live subdomains using dnsx then it extract titles of the subdomains using httpx & scans for subdomain takeover using subjack. Then it uses gauplus & waybackurls to crawl all the endpoints of the given subdomains then it use gf patterns to filters out xss, lfi, ssrf, sqli, open redirect & rce parameters from that given subdomains, and then it scans for vulnerabilities on the subdomains using different open-source tools (like kxss, dalfox, openredirex, nuclei, etc...). Then it'll print out the result of the scan and save all the output in a specified directory. <br/>
+**WebCopilot** is an automation tool designed to enumerate subdomains of the target and detect bugs using different open-source tools.
 
-<h3>Installation</h3>
+The script first enumerate all the subdomains of the given target domain using assetfinder, sublister, subfinder, amass, findomain, hackertarget, riddler and crt then do active subdomain enumeration using SecLists wordlist then filters out all the live subdomains using dnsx then it extract titles of the subdomains using httpx & scans for subdomain takeover using subjack. Then it uses gauplus & waybackurls to crawl all the endpoints of the given subdomains then it use gf patterns to filters out xss, lfi, ssrf, sqli, open redirect & rce parameters from that given subdomains, and then it scans for vulnerabilities on the subdomains using different open-source tools (like kxss, dalfox, openredirex, nuclei, etc.). Then it'll print out the result of the scan and save all the output in a specified directory. 
 
-**Requirements:** Git, Golang and Python3.<br/>
-**Tools Used:**<br/>
-[SubFinder](https://github.com/projectdiscovery/subfinder) •
-[Sublist3r](https://github.com/aboul3la/Sublist3r) •
-[GF Patterns](https://github.com/1ndianl33t/Gf-Patterns) •
-[OpenRedireX](https://github.com/devanshbatham/OpenRedireX) •
-[dnsx](https://github.com/projectdiscovery/dnsx) •
-[Assetfinder](https://github.com/tomnomnom/assetfinder) •
-[HTTPX](https://github.com/projectdiscovery/httpx) •
-[Kxss](https://github.com/Emoe/kxss) •
-[QSreplace](https://github.com/tomnomnom/qsreplace) •
-[Nuclei](https://github.com/projectdiscovery/nuclei) •
-[Dalfox](https://github.com/hahwul/dalfox) •
-[anew](https://github.com/tomnomnom/anew) •
-[JQ](https://github.com/stedolan/jq) •
-[Aquatone](https://github.com/michenriksen/aquatone) •
-[urldedupe](https://github.com/ameenmaali/urldedupe) •
-[Amass](https://github.com/OWASP/Amass) •
-[Gauplus](https://github.com/bp0lr/gauplus) •
-[waybackurls](https://github.com/tomnomnom/waybackurls) •
-[crlfuzz](https://github.com/dwisiswant0/crlfuzz)
-  
+# Features
+
+- Subdomain Enumeration using [assetfinder](https://github.com/tomnomnom/assetfinder), [sublist3r](https://github.com/aboul3la/Sublist3r), [subfinder](https://github.com/projectdiscovery/subfinder), [amass](https://github.com/OWASP/Amass), [findomain](https://github.com/Findomain/Findomain), etc.
+- Active Subdomain Enumeration usign [SecLists/DNS](https://github.com/danielmiessler/SecLists/tree/master/Discovery/DNS) wordlist.
+- Extract titles and take screenshots of live subdoamins using [aquatone](https://github.com/michenriksen/aquatone) & [httpx](https://github.com/projectdiscovery/httpx).
+- Crawl all the endpoints using [waybackurls](https://github.com/tomnomnom/waybackurls) & [gauplus](https://github.com/bp0lr/gauplus).
+- Filter out XSS, SQLi, LFI, SSRF, Open redirecct, etc parameters
+- Run different open-source tools on these parameters
+
+
+# Usage
 ```bash
-g!2m0:~ sudo su
-g!2m0:~ apt install git
-g!2m0:~ git clone https://github.com/h4r5h1t-hrs/webcopilot && cd webcopilot/ && chmod +x webcopilot install.sh && mv webcopilot /usr/bin/ && ./install.sh
+g!2m0:~ webcopilot -h
 ```
-
-<h3>Usage</h3>
 
 ```js
              
-                                  ──────▄▀▄─────▄▀▄
-                                  ─────▄█░░▀▀▀▀▀░░█▄
-                                  ─▄▄──█░░░░░░░░░░░█──▄▄
-                                  █▄▄█─█░░▀░░┬░░▀░░█─█▄▄█
-  vv██╗░░░░░░░██╗███████╗██████╗░░█████╗░░█████╗░██████╗░██╗██╗░░░░░░█████╗░████████╗
-```v██║░░██╗░░██║██╔════╝██╔══██╗██╔══██╗██╔══██╗██╔══██╗██║██║░░░░░██╔══██╗╚══██╔══╝
-```░╚██╗████╗██╔╝█████╗░░██████╦╝██║░░╚═╝██║░░██║██████╔╝██║██║░░░░░██║░░██║░░░██║░░░
-```░░████╔═████║░██╔══╝░░██╔══██╗██║░░██╗██║░░██║██╔═══╝░██║██║░░░░░██║░░██║░░░██║░░░
-```░░╚██╔╝░╚██╔╝░███████╗██████╦╝╚█████╔╝╚█████╔╝██║░░░░░██║███████╗╚█████╔╝░░░██║░░░
-```░░░╚═╝░░░╚═╝░░╚══════╝╚═════╝░░╚════╝░░╚════╝░╚═╝░░░░░╚═╝╚══════╝░╚════╝░░░░╚═╝░░░
-                                                         [●] @h4r5h1t.hrs | G!2m0
+                                ──────▄▀▄─────▄▀▄
+                                ─────▄█░░▀▀▀▀▀░░█▄
+                                ─▄▄──█░░░░░░░░░░░█──▄▄
+                                █▄▄█─█░░▀░░┬░░▀░░█─█▄▄█
+ ██╗░░░░░░░██╗███████╗██████╗░░█████╗░░█████╗░██████╗░██╗██╗░░░░░░█████╗░████████╗
+░██║░░██╗░░██║██╔════╝██╔══██╗██╔══██╗██╔══██╗██╔══██╗██║██║░░░░░██╔══██╗╚══██╔══╝
+░╚██╗████╗██╔╝█████╗░░██████╦╝██║░░╚═╝██║░░██║██████╔╝██║██║░░░░░██║░░██║░░░██║░░░
+░░████╔═████║░██╔══╝░░██╔══██╗██║░░██╗██║░░██║██╔═══╝░██║██║░░░░░██║░░██║░░░██║░░░
+░░╚██╔╝░╚██╔╝░███████╗██████╦╝╚█████╔╝╚█████╔╝██║░░░░░██║███████╗╚█████╔╝░░░██║░░░
+░░░╚═╝░░░╚═╝░░╚══════╝╚═════╝░░╚════╝░░╚════╝░╚═╝░░░░░╚═╝╚══════╝░╚════╝░░░░╚═╝░░░
+                                                      [●] @h4r5h1t.hrs | G!2m0
 
 Usage:
 webcopilot -d <target>
@@ -83,39 +71,158 @@ Flags:
 Example: webcopilot  -d domain.com -o domain -t 333 -x exclude.txt -b testServer.xss
 Use https://xsshunter.com/ or https://interact.projectdiscovery.io/ to get your server
 ```
-**Exaple Usage** 
+# Installing WebCopilot
 
+WebCopilot requires **git** to install successfully. Run the following command as a **root** to install webcopilot 
+
+```bash
+git clone https://github.com/h4r5h1t-hrs/webcopilot && cd webcopilot/ && chmod +x webcopilot install.sh && mv webcopilot /usr/bin/ && ./install.sh
+```
+### Tools Used:
+- [SubFinder](https://github.com/projectdiscovery/subfinder)<br>
+- [Sublist3r](https://github.com/aboul3la/Sublist3r)<br>
+- [Findomain](https://github.com/Findomain/Findomain)<br>
+- [GF Patterns](https://github.com/1ndianl33t/Gf-Patterns)<br>
+- [OpenRedireX](https://github.com/devanshbatham/OpenRedireX)<br>
+- [dnsx](https://github.com/projectdiscovery/dnsx)<br>
+- [Assetfinder](https://github.com/tomnomnom/assetfinder)<br>
+- [HTTPX](https://github.com/projectdiscovery/httpx)<br>
+- [Kxss](https://github.com/Emoe/kxss)<br>
+- [QSreplace](https://github.com/tomnomnom/qsreplace)<br>
+- [Nuclei](https://github.com/projectdiscovery/nuclei)<br>
+- [Dalfox](https://github.com/hahwul/dalfox)<br>
+- [anew](https://github.com/tomnomnom/anew)<br>
+- [jq](https://github.com/stedolan/jq)<br>
+- [Aquatone](https://github.com/michenriksen/aquatone)<br>
+- [urldedupe](https://github.com/ameenmaali/urldedupe)<br>
+- [Amass](https://github.com/OWASP/Amass)<br>
+- [Gauplus](https://github.com/bp0lr/gauplus)<br>
+- [waybackurls](https://github.com/tomnomnom/waybackurls)<br>
+- [crlfuzz](https://github.com/dwisiswant0/crlfuzz)
+
+## Running WebCopilot
+To run the tool on a target, just use the following command.
 ```bash
 g!2m0:~ webcopilot -d bugcrowd.com
 ```
-For only subdomain enumerations
+The `-o` command can be used to specify an output dir.
 ```bash
-g!2m0:~ webcopilot -d bugcrowd.com -s 
+g!2m0:~ webcopilot -d bugcrowd.com -o bugcrowd
 ```
-Add thrads to your scan for faster result
+The `-s` command can be used for only subdomain enumerations (Active + Passive and also get title & screenshots).
 ```bash
-g!2m0:~ webcopilot -d bugcrowd.com -o domain -t 333 
+g!2m0:~ webcopilot -d bugcrowd.com -o bugcrowd -s 
 ```
-For blind xss, you can get your server from [xsshunter](https://xsshunter.com/) or [interact](https://interact.projectdiscovery.io/)
+The `-t` command can be used to add thrads to your scan for faster result.
+```bash
+g!2m0:~ webcopilot -d bugcrowd.com -o bugcrowd -t 333 
+```
+The `-b` command can be used for blind xss (OOB), you can get your server from [xsshunter](https://xsshunter.com/) or [interact](https://interact.projectdiscovery.io/)
 ```bash 
 g!2m0:~ webcopilot -d bugcrowd.com -o bugcrowd -t 333 -b testServer.xss
 ```
-Exclude out of scope domains
+The `-x` command can be used to exclude out of scope domains.
 ```bash
 g!2m0:~ echo out.bugcrowd.com > excludeDomain.txt
 g!2m0:~ webcopilot -d bugcrowd.com -o bugcrowd -t 333 -x excludeDomain.txt -b testServer.xss
 ```
+```console
+g!2m0:~ webcopilot -d bugcrowd.com - bugcrowd
 
-**Fix errors while using or installing webcopilot**
+
+
+                                ──────▄▀▄─────▄▀▄
+                                ─────▄█░░▀▀▀▀▀░░█▄
+                                ─▄▄──█░░░░░░░░░░░█──▄▄
+                                █▄▄█─█░░▀░░┬░░▀░░█─█▄▄█
+ ██╗░░░░░░░██╗███████╗██████╗░░█████╗░░█████╗░██████╗░██╗██╗░░░░░░█████╗░████████╗
+░██║░░██╗░░██║██╔════╝██╔══██╗██╔══██╗██╔══██╗██╔══██╗██║██║░░░░░██╔══██╗╚══██╔══╝
+░╚██╗████╗██╔╝█████╗░░██████╦╝██║░░╚═╝██║░░██║██████╔╝██║██║░░░░░██║░░██║░░░██║░░░
+░░████╔═████║░██╔══╝░░██╔══██╗██║░░██╗██║░░██║██╔═══╝░██║██║░░░░░██║░░██║░░░██║░░░
+░░╚██╔╝░╚██╔╝░███████╗██████╦╝╚█████╔╝╚█████╔╝██║░░░░░██║███████╗╚█████╔╝░░░██║░░░
+░░░╚═╝░░░╚═╝░░╚══════╝╚═════╝░░╚════╝░░╚════╝░╚═╝░░░░░╚═╝╚══════╝░╚════╝░░░░╚═╝░░░
+                                                      [●] @h4r5h1t.hrs | G!2m0
+
+
+[❌] Warning: Use with caution. You are responsible for your own actions.
+[❌] Developers assume no liability and are not responsible for any misuse or damage cause by this tool.
+
+
+Target:  bugcrowd.com
+Output:  /mnt/c/Users/harsh/Projects/demoweb/bugcrowd
+Threads: 100
+Server:  False
+Exclude: False
+Mode:    Running all Enumeration
+Time:    30-08-2021 15:10:00
+
+[!] Please wait while scanning...
+
+[●] Subdoamin Scanning is in progress: Scanning subdomains of bugcrowd.com
+[●] Subdoamin Scanned  -  [assetfinder✔]                 Subdomain Found: 34
+[●] Subdoamin Scanned  -  [sublist3r✔]                   Subdomain Found: 29
+[●] Subdoamin Scanned  -  [subfinder✔]                   Subdomain Found: 54
+[●] Subdoamin Scanned  -  [amass✔]                       Subdomain Found: 43
+[●] Subdoamin Scanned  -  [findomain✔]                   Subdomain Found: 27
+
+[●] Active Subdoamin Scanning is in progress:
+[!] Please be patient. This may take a while...
+[●] Active Subdoamin Scanned  -  [ffuf✔]                 Subdomain Found: 0
+[●] Active Subdoamin Scanned  -  [amass✔]                Subdomain Found: 0
+
+[●] Subdomain Scanning: Filtering out of scope subdomains
+[●] Subdomain Scanning: Filtering Alive subdomains
+[●] Subdomain Scanning: Getting titles of valid subdomains
+[●] Visual inspection of Subdoamins is completed.        Check: /subdomains/aquatone/
+
+[●] Scanning Completed for Subdomains of bugcrowd.com    Total: 43 | Alive: 30
+
+[●] Endpoints Scanning Completed for Subdomains of bugcrowd.com  Total: 11032
+[●] Vulnerabilities Scanning is in progress: Getting all vulnerabilities of bugcrowd.com
+[●] Vulnerabilities Scanned  -  [XSS✔]                   Found: 0
+[●] Vulnerabilities Scanned  -  [SQLi✔]                  Found: 0
+[●] Vulnerabilities Scanned  -  [LFI✔]                   Found: 0
+[●] Vulnerabilities Scanned  -  [CRLF✔]                  Found: 0
+[●] Vulnerabilities Scanned  -  [SSRF✔]                  Found: 0
+[●] Vulnerabilities Scanned  -  [Sensitive Data✔]        Found: 0
+[●] Vulnerabilities Scanned  -  [Open redirect✔]         Found: 0
+[●] Vulnerabilities Scanned  -  [Subdomain Takeover✔]    Found: 0
+[●] Vulnerabilities Scanned  -  [Nuclie✔]                Found: 0
+[●] Vulnerabilities Scanning Completed for Subdomains of bugcrowd.com    Check: /vulnerabilities/
+
+
+▒█▀▀█ █▀▀ █▀▀ █░░█ █░░ ▀▀█▀▀
+▒█▄▄▀ █▀▀ ▀▀█ █░░█ █░░ ░░█░░
+▒█░▒█ ▀▀▀ ▀▀▀ ░▀▀▀ ▀▀▀ ░░▀░░
+
+[+] Subdomains of bugcrowd.com
+[+] Subdomains Found: 0
+[+] Subdomains Alive: 0
+[+] Endpoints: 11032
+[+] XSS: 0
+[+] SQLi: 0
+[+] Open Redirect: 0
+[+] SSRF: 0
+[+] CRLF: 0
+[+] LFI: 0
+[+] Sensitive Data: 0
+[+] Subdomain Takeover: 0
+[+] Nuclei: 0
+
 ```
-    Error: ./install.sh : /bin/bash^M : bad interpretor: No such file or directory
-    Fix: sed -i -e 's/\r$//' install.sh
- ```
+---
 
-#### Thanks to the authors of the tools used in this script.
+### Acknowledgement
+WebCopilot is inspired from [Garud](https://github.com/R0X4R/Garud) & [Pinaak](https://github.com/R0X4R/Pinaak).  
 
-[@aboul3la](https://github.com/aboul3la) [@tomnomnom](https://github.com/tomnomnom) [@lc](https://github.com/lc) [@hahwul](https://github.com/hahwul) [@projectdiscovery](https://github.com/projectdiscovery) [@maurosoria](https://github.com/maurosoria) [@shelld3v](https://github.com/shelld3v) [@devanshbatham](https://github.com/devanshbatham) [@michenriksen](https://github.com/michenriksen) [@defparam](https://github.com/defparam/) [@projectdiscovery](https://github.com/projectdiscovery) [@bp0lr](https://github.com/bp0lr/) [@ameenmaali](https://github.com/ameenmaali) [@dwisiswant0](https://github.com/dwisiswant0) [@OWASP](https://github.com/OWASP/) [@1ndianl33t](https://github.com/1ndianl33t)
+#### Thanks to the authors of the tools & wordlists used in this script.
+
+[@aboul3la](https://github.com/aboul3la) [@tomnomnom](https://github.com/tomnomnom) [@lc](https://github.com/lc) [@hahwul](https://github.com/hahwul) [@projectdiscovery](https://github.com/projectdiscovery) [@maurosoria](https://github.com/maurosoria) [@shelld3v](https://github.com/shelld3v) [@devanshbatham](https://github.com/devanshbatham) [@michenriksen](https://github.com/michenriksen) [@defparam](https://github.com/defparam/) [@projectdiscovery](https://github.com/projectdiscovery) [@bp0lr](https://github.com/bp0lr/) [@ameenmaali](https://github.com/ameenmaali) [@dwisiswant0](https://github.com/dwisiswant0) [@OWASP](https://github.com/OWASP/) [Edu4rdSHL](https://github.com/Edu4rdSHL) [danielmiessler](https://github.com/danielmiessler) [@1ndianl33t](https://github.com/1ndianl33t)
 
 **Special Thanks to [ROX4R](https://github.com/R0X4R/)**
 
-**Warning:**  Developers assume no liability and are not responsible for any misuse or damage cause by this tool. So, please se with caution because you are responsible for your own actions.
+<table>
+<td>
+<b>Warning:</b> Developers assume no liability and are not responsible for any misuse or damage cause by this tool. So, please se with caution because you are responsible for your own actions.
+</td>
+</table>
