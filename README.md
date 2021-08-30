@@ -103,7 +103,6 @@ git clone https://github.com/h4r5h1t-hrs/webcopilot && cd webcopilot/ && chmod +
 <a href="https://github.com/dwisiswant0/crlfuzz">crlfuzz</a>
 </p>
 
-
 ## Running WebCopilot
 To run the tool on a target, just use the following command.
 ```bash
