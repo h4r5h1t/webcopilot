@@ -170,9 +170,10 @@ subenum() {
 active_subenum() {
     echo -ne "${NORMAL}${BOLD}${YELLOW}\n[●] Active Subdoamin Scanning is in progress:${NORMAL}\n"
     echo -e "${NORMAL}${WHITE}${BOLD}${LRED}[!]${NORMAL}${WHITE}${BOLD}${LRED} Please be patient. This may take a while...${NORMAL}"
-    echo -ne "${NORMAL}${BOLD}${YELLOW}[●] Active Subdoamin Scanning  -  ${NORMAL}[${RED}${BLINK}fuzz${NORMAL}]"
-    ffuf -u http://FUZZ.$domain/ -t 200 -p 1.0-2.0 -w ~/wordlists/subdomains.txt -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36" -mc 200,403 -r -o temp/ffuf.json -s &> /dev/null
-    cat temps/ffuf.json | jq -r '.results[] | {status:.status, host:.host} | .host' 2> /dev/null | anew -q temp/active_ffuf.txt
+    echo -ne "${NORMAL}${BOLD}${YELLOW}[●] Active Subdoamin Scanning  -  ${NORMAL}[${RED}${BLINK}gobuster${NORMAL}]"
+    # ffuf -u http://FUZZ.$domain/ -t 200 -p 1.0-2.0 -w ~/wordlists/subdomains.txt -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36" -mc 200,403 -r -o temp/ffuf.json -s &> /dev/null
+    # cat temps/ffuf.json | jq -r '.results[] | {status:.status, host:.host} | .host' 2> /dev/null | anew -q temp/active_ffuf.txt
+    gobuster dns -d $domain -w ~/wordlists/subdomains.txt -t $threads -q -o  temp/atgobuster.txt
     echo -e "\033[1A"
     echo -ne "${NORMAL}${BOLD}${SORANGE}[●] Active Subdoamin Scanned  -  ${NORMAL}[${GREEN}ffuf${TICK}${NORMAL}]${DTAB} Subdomain Found: ${RED}$(cat temp/atffuf.txt 2> /dev/null | wc -l )"
     echo -ne "${NORMAL}${BOLD}${YELLOW}\n[●] Active Subdoamin Scanning  -  ${NORMAL}[${RED}${BLINK}amass${NORMAL}]"

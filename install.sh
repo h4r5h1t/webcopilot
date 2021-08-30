@@ -23,6 +23,7 @@ sudo apt-get install golang-go -y 2> /dev/null
 sudo apt install snapd -y 2> /dev/null
 sudo apt install cmake -y 2> /dev/null
 sudo apt install jq -y 2> /dev/null
+sudo apt install gobuster -y 2> /dev/null
 sudo snap install chromium 2> /dev/null
 sudo apt-get install -y parallel 2> /dev/null
 sleep 2s

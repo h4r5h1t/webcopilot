@@ -23,12 +23,12 @@
 
 **WebCopilot** is an automation tool designed to enumerate subdomains of the target and detect bugs using different open-source tools.
 
-The script first enumerate all the subdomains of the given target domain using assetfinder, sublister, subfinder, amass, findomain, hackertarget, riddler and crt then do active subdomain enumeration using SecLists wordlist then filters out all the live subdomains using dnsx then it extract titles of the subdomains using httpx & scans for subdomain takeover using subjack. Then it uses gauplus & waybackurls to crawl all the endpoints of the given subdomains then it use gf patterns to filters out xss, lfi, ssrf, sqli, open redirect & rce parameters from that given subdomains, and then it scans for vulnerabilities on the subdomains using different open-source tools (like kxss, dalfox, openredirex, nuclei, etc.). Then it'll print out the result of the scan and save all the output in a specified directory. 
+The script first enumerate all the subdomains of the given target domain using assetfinder, sublister, subfinder, amass, findomain, hackertarget, riddler and crt then do active subdomain enumeration using gobuster from SecLists wordlist then filters out all the live subdomains using dnsx then it extract titles of the subdomains using httpx & scans for subdomain takeover using subjack. Then it uses gauplus & waybackurls to crawl all the endpoints of the given subdomains then it use gf patterns to filters out xss, lfi, ssrf, sqli, open redirect & rce parameters from that given subdomains, and then it scans for vulnerabilities on the subdomains using different open-source tools (like kxss, dalfox, openredirex, nuclei, etc.). Then it'll print out the result of the scan and save all the output in a specified directory. 
 
 # Features
 
 - Subdomain Enumeration using [assetfinder](https://github.com/tomnomnom/assetfinder), [sublist3r](https://github.com/aboul3la/Sublist3r), [subfinder](https://github.com/projectdiscovery/subfinder), [amass](https://github.com/OWASP/Amass), [findomain](https://github.com/Findomain/Findomain), etc.
-- Active Subdomain Enumeration usign [SecLists/DNS](https://github.com/danielmiessler/SecLists/tree/master/Discovery/DNS) wordlist.
+- Active Subdomain Enumeration using [gobuster](https://github.com/OJ/gobuster) & [amass](https://github.com/OWASP/Amass) from [SecLists/DNS](https://github.com/danielmiessler/SecLists/tree/master/Discovery/DNS) wordlist.
 - Extract titles and take screenshots of live subdoamins using [aquatone](https://github.com/michenriksen/aquatone) & [httpx](https://github.com/projectdiscovery/httpx).
 - Crawl all the endpoints using [waybackurls](https://github.com/tomnomnom/waybackurls) & [gauplus](https://github.com/bp0lr/gauplus).
 - Filter out XSS, SQLi, LFI, SSRF, Open redirecct, etc parameters
@@ -87,6 +87,7 @@ git clone https://github.com/h4r5h1t-hrs/webcopilot && cd webcopilot/ && chmod +
 <a href="https://github.com/tomnomnom/gf">gf</a> •
 <a href="https://github.com/devanshbatham/OpenRedireX">OpenRedireX</a> •
 <a href="https://github.com/projectdiscovery/dnsx">dnsx</a> •
+<a href="https://github.com/OJ/gobuster">gobuster</a> •
 <a href="https://github.com/tomnomnom/assetfinder">assetfinder</a> •
 <a href="https://github.com/projectdiscovery/httpx">httpx</a> •
 <a href="https://github.com/Emoe/kxss">kxss</a> •
@@ -129,13 +130,13 @@ The `-x` command can be used to exclude out of scope domains.
 g!2m0:~ echo out.bugcrowd.com > excludeDomain.txt
 g!2m0:~ webcopilot -d bugcrowd.com -o bugcrowd -t 333 -x excludeDomain.txt -b testServer.xss
 ```
----
+## Example
+Default options looks like this:
+```bash
+g!2m0:~ webcopilot -d bugcrowd.com - bugcrowd
+```
 
 ```js
-g!2m0:~ webcopilot -d bugcrowd.com - bugcrowd
-
-
-
                                 ──────▄▀▄─────▄▀▄
                                 ─────▄█░░▀▀▀▀▀░░█▄
                                 ─▄▄──█░░░░░░░░░░░█──▄▄
@@ -172,7 +173,7 @@ Time:    30-08-2021 15:10:00
 
 [●] Active Subdoamin Scanning is in progress:
 [!] Please be patient. This may take a while...
-[●] Active Subdoamin Scanned  -  [ffuf✔]                 Subdomain Found: 0
+[●] Active Subdoamin Scanned  -  [gobuster✔]             Subdomain Found: 11
 [●] Active Subdoamin Scanned  -  [amass✔]                Subdomain Found: 0
 
 [●] Subdomain Scanning: Filtering out of scope subdomains
@@ -222,7 +223,7 @@ WebCopilot is inspired from [Garud](https://github.com/R0X4R/Garud) & [Pinaak](h
 
 #### Thanks to the authors of the tools & wordlists used in this script.
 
-[@aboul3la](https://github.com/aboul3la) [@tomnomnom](https://github.com/tomnomnom) [@lc](https://github.com/lc) [@hahwul](https://github.com/hahwul) [@projectdiscovery](https://github.com/projectdiscovery) [@maurosoria](https://github.com/maurosoria) [@shelld3v](https://github.com/shelld3v) [@devanshbatham](https://github.com/devanshbatham) [@michenriksen](https://github.com/michenriksen) [@defparam](https://github.com/defparam/) [@projectdiscovery](https://github.com/projectdiscovery) [@bp0lr](https://github.com/bp0lr/) [@ameenmaali](https://github.com/ameenmaali) [@dwisiswant0](https://github.com/dwisiswant0) [@OWASP](https://github.com/OWASP/) [Edu4rdSHL](https://github.com/Edu4rdSHL) [danielmiessler](https://github.com/danielmiessler) [@1ndianl33t](https://github.com/1ndianl33t) [ROX4R](https://github.com/R0X4R/)
+[@aboul3la](https://github.com/aboul3la) [@tomnomnom](https://github.com/tomnomnom) [@lc](https://github.com/lc) [@hahwul](https://github.com/hahwul) [@projectdiscovery](https://github.com/projectdiscovery) [@maurosoria](https://github.com/maurosoria) [@shelld3v](https://github.com/shelld3v) [@devanshbatham](https://github.com/devanshbatham) [@michenriksen](https://github.com/michenriksen) [@defparam](https://github.com/defparam/) [@projectdiscovery](https://github.com/projectdiscovery) [@bp0lr](https://github.com/bp0lr/) [@ameenmaali](https://github.com/ameenmaali) [@dwisiswant0](https://github.com/dwisiswant0) [@OWASP](https://github.com/OWASP/) [@OJ](https://github.com/OJ/) [@Findomain](https://github.com/Findomain/Findomain) [@danielmiessler](https://github.com/danielmiessler) [@1ndianl33t](https://github.com/1ndianl33t) [@ROX4R](https://github.com/R0X4R/)
 
 <table>
 <td>
