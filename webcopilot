@@ -1,7 +1,6 @@
 #!/bin/bash
 # Coded by: Harshit Raj Singh aKa G!2m0 @h4r5h1t.hrs
-# Inspired by: @ROX4R works
-# Credits: @ROX4R
+# Inspired by: Garud and Pinaak by @ROX4R
 
 #Colors Output
 NORMAL="\e[0m"			
