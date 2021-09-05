@@ -172,13 +172,13 @@ active_subenum() {
     echo -ne "${NORMAL}${BOLD}${YELLOW}[●] Active Subdoamin Scanning  -  ${NORMAL}[${RED}${BLINK}gobuster${NORMAL}]"
     # ffuf -u http://FUZZ.$domain/ -t 200 -p 1.0-2.0 -w ~/wordlists/subdomains.txt -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36" -mc 200,403 -r -o temp/ffuf.json -s &> /dev/null
     # cat temps/ffuf.json | jq -r '.results[] | {status:.status, host:.host} | .host' 2> /dev/null | anew -q temp/active_ffuf.txt
-    gobuster dns -d $domain -w ~/wordlists/subdomains.txt -t $threads -q -o  temp/atgobuster.txt
+    gobuster dns -d $domain -w ~/wordlists/subdomains.txt -t $threads --timeout 3s -q -o  temp/active_gobuster.txt
     echo -e "\033[1A"
-    echo -ne "${NORMAL}${BOLD}${SORANGE}[●] Active Subdoamin Scanned  -  ${NORMAL}[${GREEN}ffuf${TICK}${NORMAL}]${DTAB} Subdomain Found: ${RED}$(cat temp/atffuf.txt 2> /dev/null | wc -l )"
+    echo -ne "${NORMAL}${BOLD}${SORANGE}[●] Active Subdoamin Scanned  -  ${NORMAL}[${GREEN}gobuster${TICK}${NORMAL}]${DTAB} Subdomain Found: ${RED}$(cat temp/active_gobuster.txt 2> /dev/null | wc -l )"
     echo -ne "${NORMAL}${BOLD}${YELLOW}\n[●] Active Subdoamin Scanning  -  ${NORMAL}[${RED}${BLINK}amass${NORMAL}]"
     timeout 22m amass enum -active -brute -w ~/wordlists/subdomains.txt -d $domain -o temp/active_amass.txt &> /dev/null
     echo -e "\033[2A"
-    echo -ne "${NORMAL}${BOLD}${SORANGE}\n[●] Active Subdoamin Scanned  -  ${NORMAL}[${GREEN}amass${TICK}${NORMAL}]${DTAB} Subdomain Found: ${RED}$(cat temp/atamass.txt 2> /dev/null | wc -l )\n"
+    echo -ne "${NORMAL}${BOLD}${SORANGE}\n[●] Active Subdoamin Scanned  -  ${NORMAL}[${GREEN}amass${TICK}${NORMAL}]${DTAB} Subdomain Found: ${RED}$(cat temp/active_amass.txt 2> /dev/null | wc -l )\n"
 }
     
 subfiltering() {    
@@ -222,6 +222,7 @@ gfpt(){
     cat subdomains/endpoints.txt | gf lfi | sed "s/'\|(\|)//g" | qsreplace "FUZZ" 2> /dev/null | anew -q patterns/lfi.txt
     cat subdomains/endpoints.txt | gf rce | sed "s/'\|(\|)//g" | qsreplace "FUZZ" 2> /dev/null | anew -q patterns/rce.txt
     cat subdomains/endpoints.txt | gf redirect | sed "s/'\|(\|)//g" | qsreplace "FUZZ" 2> /dev/null | anew -q patterns/openredirect.txt 
+
     echo -ne "${NORMAL}${BOLD}${LGREEN}[●] Endpoints Scanning Completed for Subdomains of ${NORMAL}${BOLD}${RED}$domain${RED}${WHITE}\t Total: ${GREEN}$(cat subdomains/endpoints.txt 2> /dev/null | wc -l )"
     sleep 2s
 }
@@ -257,13 +258,6 @@ crlf() {
     echo -ne "${NORMAL}${BOLD}${YELLOW}\n[●] Vulnerabilities Scanning  -  ${NORMAL}[${GREEN}${BLINK}CRLF${NORMAL}]\r"
     crlfuzz -l subdomains/alivesub.txt -c $threads -s | anew vulnerabilities/crlf.txt &> /dev/null
     echo -ne "${NORMAL}${BOLD}${SORANGE}[●] Vulnerabilities Scanned  -  ${NORMAL}[${RED}CRLF${TICK}${NORMAL}]${TTAB} Found: ${GREEN}$(cat vulnerabilities/crlf.txt 2> /dev/null | wc -l )"
-}
-
-sensitive(){
-    echo -ne "${NORMAL}${BOLD}${YELLOW}\n[●] Vulnerabilities Scanning  -  ${NORMAL}[${GREEN}${BLINK}Sensitive Data${NORMAL}]\r"
-    cat patterns/sensitive.txt | cut -d"?" -f1 | cut -d"=" -f1 | anew -q vulnerabilities/check_sensitive.txt
-    cat checkSensitive.txt | grep -iaE "([^.]+)\.zip$|([^.]+)\.zip\.[0-9]+$|([^.]+)\.zip[0-9]+$|([^.]+)\.zip[a-z][A-Z][0-9]+$|([^.]+)\.zip\.[a-z][A-Z][0-9]+$|([^.]+)\.rar$|([^.]+)\.tar$|([^.]+)\.tar\.gz$|([^.]+)\.tgz$|([^.]+)\.sql$|([^.]+)\.db$|([^.]+)\.sqlite$|([^.]+)\.pgsql\.txt$|([^.]+)\.mysql\.txt$|([^.]+)\.gz$|([^.]+)\.config$|([^.]+)\.log$|([^.]+)\.bak$|([^.]+)\.backup$|([^.]+)\.bkp$|([^.]+)\.crt$|([^.]+)\.dat$|([^.]+)\.eml$|([^.]+)\.java$|([^.]+)\.lst$|([^.]+)\.key$|([^.]+)\.passwd$|([^.]+)\.pl$|([^.]+)\.pwd$|([^.]+)\.mysql-connect$|([^.]+)\.jar$|([^.]+)\.cfg$|([^.]+)\.dir$|([^.]+)\.orig$|([^.]+)\.bz2$|([^.]+)\.old$|([^.]+)\.vbs$|([^.]+)\.img$|([^.]+)\.inf$|([^.]+)\.sh$|([^.]+)\.py$|([^.]+)\.vbproj$|([^.]+)\.mysql-pconnect$|([^.]+)\.war$|([^.]+)\.go$|([^.]+)\.psql$|([^.]+)\.sql\.gz$|([^.]+)\.vb$|([^.]+)\.webinfo$|([^.]+)\.jnlp$|([^.]+)\.cgi$|([^.]+)\.temp$|([^.]+)\.ini$|([^.]+)\.webproj$|([^.]+)\.xsql$|([^.]+)\.raw$|([^.]+)\.inc$|([^.]+)\.lck$|([^.]+)\.nz$|([^.]+)\.rc$|([^.]+)\.html\.gz$|([^.]+)\.gz$|([^.]+)\.env$|([^.]+)\.yml$" | anew -q vulnerabilities/sensitivefile.txt
-    echo -ne "${NORMAL}${BOLD}${SORANGE}[●] Vulnerabilities Scanned  -  ${NORMAL}[${RED}Sensitive Data${TICK}${NORMAL}]\t Found: ${GREEN}$(cat vulnerabilities/sensitivefile.txt 2> /dev/null | wc -l )"
 }
 
 takeover(){
@@ -314,7 +308,6 @@ result() {
     echo -ne "${BOLD}${LGREEN}[+]${NORMAL}${BOLD}${WHITE} SSRF:${NORMAL}${BOLD}${GREEN} $(cat vulnerabilities/ssrf.txt 2> /dev/null | wc -l)${NORMAL}\n"
     echo -ne "${BOLD}${LGREEN}[+]${NORMAL}${BOLD}${WHITE} CRLF:${NORMAL}${BOLD}${GREEN} $(cat vulnerabilities/crlf.txt 2> /dev/null | wc -l)${NORMAL}\n"
     echo -ne "${BOLD}${LGREEN}[+]${NORMAL}${BOLD}${WHITE} LFI:${NORMAL}${BOLD}${GREEN} $(cat vulnerabilities/lfi.txt 2> /dev/null | wc -l)${NORMAL}\n"
-    echo -ne "${BOLD}${LGREEN}[+]${NORMAL}${BOLD}${WHITE} Sensitive Data:${NORMAL}${BOLD}${GREEN} $(cat vulnerabilities/sensitivefile.txt 2> /dev/null | wc -l)${NORMAL}\n"
     echo -ne "${BOLD}${LGREEN}[+]${NORMAL}${BOLD}${WHITE} Subdomain Takeover:${NORMAL}${BOLD}${GREEN} $(cat subdomains/takeover.txt 2> /dev/null | wc -l)${NORMAL}\n"
     echo -ne "${BOLD}${LGREEN}[+]${NORMAL}${BOLD}${WHITE} Nuclei:${NORMAL}${BOLD}${GREEN} $(cat  nuclei/medium.txt nuclei/high.txt nuclei/critical.txt 2> /dev/null | wc -l)${NORMAL}\n"
 }
