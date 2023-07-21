@@ -1,11 +1,11 @@
-<h1 align="center"><a href="https://github.com/h4r5h1t-hrs/webcopilot/">WebCopilot</a></h1>
+<h1 align="center"><a href="https://github.com/h4r5h1t/webcopilot/">WebCopilot</a></h1>
 <h4 align="center">An automation tool that enumerate subdomains then filters out xss, sqli, open redirect, lfi, ssrf and rce parameters and then scans for vulnerabilities.</h4>
 
 <p align="center">
 <a href="https://twitter.com/h4r5h1t_hrs"><img src="https://img.shields.io/twitter/follow/h4r5h1t_hrs?style=social"></a>
-<a href="https://github.com/h4r5h1t-hrs?tab=followers"><img src="https://img.shields.io/github/followers/h4r5h1t-hrs?style=social"></a>
-<a href="https://github.com/h4r5h1t-hrs/webcopilot/issues"><img src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat"></a>
-<a href="https://github.com/h4r5h1t-hrs/webcopilot/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg"></a>
+<a href="https://github.com/h4r5h1t?tab=followers"><img src="https://img.shields.io/github/followers/h4r5h1t?style=social"></a>
+<a href="https://github.com/h4r5h1t/webcopilot/issues"><img src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat"></a>
+<a href="https://github.com/h4r5h1t/webcopilot/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg"></a>
 <a href="#"><img src="https://img.shields.io/badge/Made%20with-Bash-1f425f.svg"></a>
 <a href="#"><img src="https://madewithlove.org.in/badge.svg"></a>
 </p>
@@ -75,7 +75,7 @@ Use https://xsshunter.com/ or https://interact.projectdiscovery.io/ to get your 
 WebCopilot requires **git** to install successfully. Run the following command as a **root** to install webcopilot 
 
 ```bash
-git clone https://github.com/h4r5h1t-hrs/webcopilot && cd webcopilot/ && chmod +x webcopilot install.sh && mv webcopilot /usr/bin/ && ./install.sh
+git clone https://github.com/h4r5h1t/webcopilot && cd webcopilot/ && chmod +x webcopilot install.sh && mv webcopilot /usr/bin/ && ./install.sh
 ```
 ### Tools Used:
 

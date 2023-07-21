@@ -1,5 +1,5 @@
 #!/bin/bash
-# Coded by: Harshit Raj Singh aKa G!2m0 @h4r5h1t.hrs
+# Coded by: Harshit Raj Singh aKa G!2m0 @h4r5h1t
 # Inspired by: Garud and Pinaak by @ROX4R
 
 #Colors Output
@@ -53,7 +53,7 @@ echo -e "\n${BOLD}${LRED}
 ░░████╔═████║░██╔══╝░░██╔══██╗██║░░██╗██║░░██║██╔═══╝░██║██║░░░░░██║░░██║░░░██║░░░
 ░░╚██╔╝░╚██╔╝░███████╗██████╦╝╚█████╔╝╚█████╔╝██║░░░░░██║███████╗╚█████╔╝░░░██║░░░
 ░░░╚═╝░░░╚═╝░░╚══════╝╚═════╝░░╚════╝░░╚════╝░╚═╝░░░░░╚═╝╚══════╝░╚════╝░░░░╚═╝░░░"
-echo -e "${NORMAL}${BOLD}${QTAB}${DTAB}${QSPACE}  [●] ${BLINK}${LGREEN}@h4r5h1t.hrs${DGRAY} | ${LGREEN}G!2m0${NORMAL}\n"    
+echo -e "${NORMAL}${BOLD}${QTAB}${DTAB}${QSPACE}  [●] ${BLINK}${LGREEN}@h4r5h1t${DGRAY} | ${LGREEN}G!2m0${NORMAL}\n"    
 
 echo -e "${NORMAL}\n[${CROSS}] ${NORMAL}Warning: Use with caution. You are responsible for your own actions.${NORMAL}"
 echo -e "${NORMAL}[${CROSS}] ${NORMAL}Developers assume no liability and are not responsible for any misuse or damage cause by this tool.${NORMAL}\n"
