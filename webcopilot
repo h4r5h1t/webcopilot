@@ -154,7 +154,7 @@ subenum() {
     echo -e "\033[2A"
     echo -ne "${NORMAL}${BOLD}${SORANGE}\n[●] Subdomain Scanned  -  ${NORMAL}[${GREEN}subfinder${TICK}${NORMAL}]${TTAB} Subdomain Found: ${LGREEN}$(cat temp/subfinder.txt 2> /dev/null | wc -l )"
     echo -ne "${NORMAL}${BOLD}${YELLOW}\n[●] Subdomain Scanning  -  ${NORMAL}[${LRED}${BLINK}amass${NORMAL}]"
-    amass enum -passive -norecursive -noalts -d $domain -o temp/amass.txt &> /dev/null
+    amass enum -passive -norecursive -d $domain -o temp/amass.txt &> /dev/null
     echo -e "\033[2A"
     echo -ne "${NORMAL}${BOLD}${SORANGE}\n[●] Subdomain Scanned  -  ${NORMAL}[${GREEN}amass${TICK}${NORMAL}]${TTAB} Subdomain Found: ${LGREEN}$(cat temp/amass.txt 2> /dev/null | wc -l )"
     echo -ne "${NORMAL}${BOLD}${YELLOW}\n[●] Subdomain Scanning  -  ${NORMAL}[${LRED}${BLINK}findomain${NORMAL}]"
