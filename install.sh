@@ -34,11 +34,11 @@ echo "Installing python tools"
 # cd && git clone https://github.com/aboul3la/Sublist3r.git ~/tools/Sublist3r && cd ~/tools/Sublist3r && sudo pip3 install -r requirements.txt 2> /dev/null
 cd && git clone https://github.com/hxlxmjxbbxs/SUBLIST3R_V2.0 ~/tools/SUBLIST3R_V2.0 && cd ~/tools/SUBLIST3R_V2.0 && sudo pip3 install -r requirements.txt 2> /dev/null
 cd && git clone https://github.com/sqlmapproject/sqlmap.git ~/tools/sqlmap/ 2> /dev/null
-cd && git clone https://github.com/ameenmaali/urldedupe.git ~/tools/urldedupe && cd ~/tools/urldedupe && cmake CMakeLists.txt && make && ln -s urldedupe /usr/bin/urldedupe 2> /dev/null
+cd && git clone https://github.com/ameenmaali/urldedupe.git ~/tools/urldedupe && cd ~/tools/urldedupe && cmake CMakeLists.txt && make && mv urldedupe /usr/bin/urldedupe 2> /dev/null
 cd && git clone https://github.com/devanshbatham/openredirex ~/tools/openredirex && cd ~/tools/openredirex && sudo chmod +x setup.sh && ./setup.sh 2> /dev/null
-cd ~/tools/ && wget https://github.com/Findomain/Findomain/releases/download/9.0.4/findomain-linux.zip && unzip findomain-linux.zip && chmod +x findomain && ln -s findomain /usr/bin/findomain 2> /dev/null
+cd ~/tools/ && wget https://github.com/Findomain/Findomain/releases/download/9.0.4/findomain-linux.zip && unzip findomain-linux.zip && chmod +x findomain && mv findomain /usr/bin/findomain 2> /dev/null
 ### Replace gau, gauplus, and waybackurls with waymore by xnl-h4ck3r - Visit here: (https://github.com/xnl-h4ck3r/waymore)
-cd && git clone https://github.com/xnl-h4ck3r/waymore.git ~/tools/waymore && cd ~/tools/waymore && sudo python setup.py install && ln -s waymore.py /usr/bin/waymore 2> /dev/null
+cd && git clone https://github.com/xnl-h4ck3r/waymore.git ~/tools/waymore && cd ~/tools/waymore && sudo python setup.py install && mv waymore.py /usr/bin/waymore 2> /dev/null
 
 echo "Installing Wordlists & Payloads"
 cd ~/wordlists/ && wget https://raw.githubusercontent.com/danielmiessler/SecLists/master/Discovery/Web-Content/big.txt
@@ -69,7 +69,7 @@ go install -v github.com/hahwul/dalfox/v2@latest 2> /dev/null
 GO111MODULE=on go install -v github.com/dwisiswant0/crlfuzz/cmd/crlfuzz@latest 2> /dev/null
 go install -v github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest 2> /dev/null
 go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest 2> /dev/null
-# cd ~/tools/temp/ && wget https://github.com/owasp-amass/amass/releases/download/v4.2.0/amass_Linux_i386.zip && unzip amass_linux_i386.zip && cd amass_linux_i386 && ln -s amass /usr/bin/amass 2> /dev/null
+# cd ~/tools/temp/ && wget https://github.com/owasp-amass/amass/releases/download/v4.2.0/amass_Linux_i386.zip && unzip amass_linux_i386.zip && cd amass_linux_i386 && mv amass /usr/bin/amass 2> /dev/null
 
 cd
 cp -r ~/go/src/github.com/tomnomnom/gf/examples ~/.gf/
