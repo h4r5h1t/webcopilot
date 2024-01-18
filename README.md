@@ -75,7 +75,7 @@ Use https://xsshunter.com/ or https://interact.projectdiscovery.io/ to get your 
 WebCopilot requires **git** to install successfully. Run the following command as a **root** to install webcopilot 
 
 ```bash
-git clone https://github.com/h4r5h1t/webcopilot && cd webcopilot/ && chmod +x webcopilot install.sh && mv webcopilot /usr/bin/ && ./install.sh
+git clone https://github.com/h4r5h1t/webcopilot && cd webcopilot/ && chmod +x webcopilot install.sh && ln -s webcopilot /usr/bin/webcopilot && ./install.sh
 ```
 ### Tools Used:
 
