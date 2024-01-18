@@ -214,7 +214,7 @@ parammine() {
     echo -ne "\n${NORMAL}${BOLD}${YELLOW}[●] Endpoints Scanning:${NORMAL}${BOLD} Getting all endpoints\r"
 #    cat subdomains/alivesub.txt | gauplus --random-agent -b eot,jpg,jpeg,gif,css,tif,tiff,png,ttf,otf,woff,woff2,ico,pdf,svg,txt -t $threads -o temp/gauplus.txt
 #    cat subdomains/alivesub.txt | waybackurls | anew -q temp/waybackurls.txt
-    cat subdomains/alivesub.txt | waymore -mode U -oU temp/waymore.txt
+    cat subdomains/alivesub.txt | python3 ~/tools/waymore/waymore.py -mode U -oU temp/waymore.txt
     cat temp/waymore.txt 2> /dev/null | sed '/\[/d' | grep $domain | sort -u | urldedupe -s | anew -q subdomains/endpoints.txt
 }
 
