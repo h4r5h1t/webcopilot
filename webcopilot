@@ -145,10 +145,13 @@ subenum() {
     assetfinder --subs-only $domain | sort -u | anew -q temp/assetfinder.txt
     echo -e "\033[2A"
     echo -ne "${NORMAL}${BOLD}${SORANGE}\n[●] Subdomain Scanned  -  ${NORMAL}[${GREEN}assetfinder${TICK}${NORMAL}]${DTAB} Subdomain Found: ${LGREEN}$(cat temp/assetfinder.txt 2> /dev/null | wc -l )"
-    echo -ne "${NORMAL}${BOLD}${YELLOW}\n[●] Subdomain Scanning  -  ${NORMAL}[${LRED}${BLINK}sublist3r${NORMAL}]"
-    python3 ~/tools/Sublist3r/sublist3r.py -d $domain -t $threads -o temp/sublister.txt &> /dev/null
+#    echo -ne "${NORMAL}${BOLD}${YELLOW}\n[●] Subdomain Scanning  -  ${NORMAL}[${LRED}${BLINK}sublist3r${NORMAL}]"
+    echo -ne "${NORMAL}${BOLD}${YELLOW}\n[●] Subdomain Scanning  -  ${NORMAL}[${LRED}${BLINK}SUBLIST3R_V2.0${NORMAL}]"
+#    python3 ~/tools/Sublist3r/sublist3r.py -d $domain -t $threads -o temp/sublister.txt &> /dev/null
+    python3 ~/tools/SUBLIST3R_V2.0/sublist3r.py -d $domain -t $threads -o temp/sublister.txt &> /dev/null
     echo -e "\033[2A"
-    echo -ne "${NORMAL}${BOLD}${SORANGE}\n[●] Subdomain Scanned  -  ${NORMAL}[${GREEN}sublist3r${TICK}${NORMAL}]${TTAB} Subdomain Found: ${LGREEN}$(cat temp/sublister.txt 2> /dev/null | wc -l )"
+#    echo -ne "${NORMAL}${BOLD}${SORANGE}\n[●] Subdomain Scanned  -  ${NORMAL}[${GREEN}sublist3r${TICK}${NORMAL}]${TTAB} Subdomain Found: ${LGREEN}$(cat temp/sublister.txt 2> /dev/null | wc -l )"
+    echo -ne "${NORMAL}${BOLD}${SORANGE}\n[●] Subdomain Scanned  -  ${NORMAL}[${GREEN}SUBLIST3R_V2.0${TICK}${NORMAL}]${TTAB} Subdomain Found: ${LGREEN}$(cat temp/sublister.txt 2> /dev/null | wc -l )"
     echo -ne "${NORMAL}${BOLD}${YELLOW}\n[●] Subdomain Scanning  -  ${NORMAL}[${LRED}${BLINK}subfinder${NORMAL}]"
     subfinder -silent -d $domain -all -t $threads -o temp/subfinder.txt &> /dev/null
     echo -e "\033[2A"
@@ -209,9 +212,10 @@ title() {
 
 parammine() {
     echo -ne "\n${NORMAL}${BOLD}${YELLOW}[●] Endpoints Scanning:${NORMAL}${BOLD} Getting all endpoints\r"
-    cat subdomains/alivesub.txt | gauplus --random-agent -b eot,jpg,jpeg,gif,css,tif,tiff,png,ttf,otf,woff,woff2,ico,pdf,svg,txt -t $threads -o temp/gauplus.txt
-    cat subdomains/alivesub.txt | waybackurls | anew -q temp/waybackurls.txt
-    cat temp/gauplus.txt temp/waybackurls.txt 2> /dev/null | sed '/\[/d' | grep $domain | sort -u | urldedupe -s | anew -q subdomains/endpoints.txt
+#    cat subdomains/alivesub.txt | gauplus --random-agent -b eot,jpg,jpeg,gif,css,tif,tiff,png,ttf,otf,woff,woff2,ico,pdf,svg,txt -t $threads -o temp/gauplus.txt
+#    cat subdomains/alivesub.txt | waybackurls | anew -q temp/waybackurls.txt
+    cat subdomains/alivesub.txt | waymore -mode U -oU temp/waymore.txt
+    cat temp/waymore.txt 2> /dev/null | sed '/\[/d' | grep $domain | sort -u | urldedupe -s | anew -q subdomains/endpoints.txt
 }
 
 gfpt(){
@@ -271,7 +275,7 @@ takeover(){
 openredirect(){
     echo -ne "${NORMAL}${BOLD}${YELLOW}\n[●] Vulnerabilities Scanning  -  ${NORMAL}[${GREEN}${BLINK}Open Redirect${NORMAL}]\r"
     cat patterns/openredirect | qsreplace "http://www.evil.com/" 2> /dev/null | anew -q temp/openredirect.txt
-    python3 ~/tools/OpenRedireX/openredirex.py -l temp/openredirect.txt --keyword FUZZ -p ~/tools/OpenRedireX/payloads.txt 2> /dev/null | grep "^http" | sed -r -i "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g" | anew -q vulnerabilities/openredireX.txt &> /dev/null
+    python3 ~/tools/openredirex/openredirex.py -l temp/openredirect.txt --keyword FUZZ -p ~/tools/openredirex/payloads.txt 2> /dev/null | grep "^http" | sed -r -i "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g" | anew -q vulnerabilities/openredirex.txt &> /dev/null
     cat temp/opredirect.txt | xargs -P 50 -I % bash -c "curl -s  -H \"X-Bugbounty: Testing\" -H \"User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36\" --insecure -iL '%' | grep \"Evil.Com - We get it...Daily\" && echo -e \"[${RED}POTENTIAL OPREDIRECT${NORMAL}] - % \n \"" 2> /dev/null | grep "POTENTIAL OPREDIRECT" | anew vulnerabilities/openredirect.txt &> /dev/null
     echo -ne "${NORMAL}${BOLD}${SORANGE}[●] Vulnerabilities Scanned  -  ${NORMAL}[${RED}Open redirect${TICK}${NORMAL}]\t Found: ${GREEN}$(cat vulnerabilities/openredirect.txt 2> /dev/null | wc -l )"
 }
