@@ -4,7 +4,7 @@ if [ "$(id -u)" != "0" ]; then
     echo "Make sure you're root before installing the tools"
     exit 1
 fi
-clear
+# clear
 cd
 mkdir -p ~/tools
 mkdir -p ~/tools/temp/
@@ -27,7 +27,7 @@ sudo apt install gobuster -y 2> /dev/null
 sudo snap install chromium 2> /dev/null
 sudo apt-get install -y parallel 2> /dev/null
 sleep 2s
-clear
+# clear
 
 echo "Installing python tools"
 ### Replace aboul3la/Sublist3r with SUBLIST3R_V2.0 by hxlxmjxbbxs - Visit here: (https://github.com/hxlxmjxbbxs/sublist3rV2)
@@ -84,4 +84,4 @@ sudo cp ~/go/bin/* /usr/bin/
 rm -rf ~/tools/temp/
 nuclei -update-templates &> /dev/null
 sleep 2s
-clear
+# clear
