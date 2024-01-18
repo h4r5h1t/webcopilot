@@ -101,7 +101,10 @@ git clone https://github.com/h4r5h1t/webcopilot && cd webcopilot/ && chmod +x we
 <a href="https://github.com/OWASP/Amass">Amass</a> •
 <a href="https://github.com/bp0lr/gauplus">gauplus</a> •
 <a href="https://github.com/tomnomnom/waybackurls">waybackurls</a> •
-<a href="https://github.com/dwisiswant0/crlfuzz">crlfuzz</a>
+<a href="https://github.com/dwisiswant0/crlfuzz">crlfuzz</a> •
+<a href="https://github.com/lc/gau">gau</a> •
+<a href="https://github.com/xnl-h4ck3r/waymore">waymore</a> •
+<a href="https://github.com/hxlxmjxbbxs/SUBLIST3R_V2.0">SUBLIST3R_V2.0</a>
 </p>
 
 ## Running WebCopilot
