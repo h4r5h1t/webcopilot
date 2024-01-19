@@ -104,7 +104,8 @@ git clone https://github.com/h4r5h1t/webcopilot && cd webcopilot/ && chmod +x we
 <a href="https://github.com/dwisiswant0/crlfuzz">crlfuzz</a> •
 <a href="https://github.com/lc/gau">gau</a> •
 <a href="https://github.com/xnl-h4ck3r/waymore">waymore</a> •
-<a href="https://github.com/hxlxmjxbbxs/SUBLIST3R_V2.0">SUBLIST3R_V2.0</a>
+<a href="https://github.com/hxlxmjxbbxs/SUBLIST3R_V2.0">SUBLIST3R_V2.0</a> •
+<a href="https://github.com/s0md3v/uro">uro</a>
 </p>
 
 ## Running WebCopilot
@@ -226,7 +227,7 @@ WebCopilot is inspired from [Garud](https://github.com/R0X4R/Garud) & [Pinaak](h
 
 #### Thanks to the authors of the tools & wordlists used in this script.
 
-[@aboul3la](https://github.com/aboul3la) [@tomnomnom](https://github.com/tomnomnom) [@lc](https://github.com/lc) [@hahwul](https://github.com/hahwul) [@projectdiscovery](https://github.com/projectdiscovery) [@maurosoria](https://github.com/maurosoria) [@shelld3v](https://github.com/shelld3v) [@devanshbatham](https://github.com/devanshbatham) [@michenriksen](https://github.com/michenriksen) [@defparam](https://github.com/defparam/) [@projectdiscovery](https://github.com/projectdiscovery) [@bp0lr](https://github.com/bp0lr/) [@ameenmaali](https://github.com/ameenmaali) [@sqlmapproject](https://github.com/sqlmapproject/sqlmap) [@dwisiswant0](https://github.com/dwisiswant0) [@OWASP](https://github.com/OWASP/) [@OJ](https://github.com/OJ/) [@Findomain](https://github.com/Findomain/Findomain) [@danielmiessler](https://github.com/danielmiessler) [@1ndianl33t](https://github.com/1ndianl33t) [@ROX4R](https://github.com/R0X4R/) [@xnl-h4ck3r](https://github.com/xnl-h4ck3r/) [@hxlxmjxbbxs](https://github.com/hxlxmjxbbxs/) [@lc](https://github.com/lc/)
+[@aboul3la](https://github.com/aboul3la) [@tomnomnom](https://github.com/tomnomnom) [@lc](https://github.com/lc) [@hahwul](https://github.com/hahwul) [@projectdiscovery](https://github.com/projectdiscovery) [@maurosoria](https://github.com/maurosoria) [@shelld3v](https://github.com/shelld3v) [@devanshbatham](https://github.com/devanshbatham) [@michenriksen](https://github.com/michenriksen) [@defparam](https://github.com/defparam/) [@projectdiscovery](https://github.com/projectdiscovery) [@bp0lr](https://github.com/bp0lr/) [@ameenmaali](https://github.com/ameenmaali) [@sqlmapproject](https://github.com/sqlmapproject/sqlmap) [@dwisiswant0](https://github.com/dwisiswant0) [@OWASP](https://github.com/OWASP/) [@OJ](https://github.com/OJ/) [@Findomain](https://github.com/Findomain/Findomain) [@danielmiessler](https://github.com/danielmiessler) [@1ndianl33t](https://github.com/1ndianl33t) [@ROX4R](https://github.com/R0X4R/) [@xnl-h4ck3r](https://github.com/xnl-h4ck3r/) [@hxlxmjxbbxs](https://github.com/hxlxmjxbbxs/) [@lc](https://github.com/lc/) [@s0md3v](https://github.com/s0md3v/)
 
 <table>
 <td>
