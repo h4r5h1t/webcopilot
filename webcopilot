@@ -146,11 +146,12 @@ subenum() {
     echo -e "\033[2A"
     echo -ne "${NORMAL}${BOLD}${SORANGE}\n[●] Subdomain Scanned  -  ${NORMAL}[${GREEN}assetfinder${TICK}${NORMAL}]${DTAB} Subdomain Found: ${LGREEN}$(cat temp/assetfinder.txt 2> /dev/null | wc -l )"
 #    echo -ne "${NORMAL}${BOLD}${YELLOW}\n[●] Subdomain Scanning  -  ${NORMAL}[${LRED}${BLINK}sublist3r${NORMAL}]"
-    echo -ne "${NORMAL}${BOLD}${YELLOW}\n[●] Subdomain Scanning  -  ${NORMAL}[${LRED}${BLINK}SUBLIST3R_V2.0${NORMAL}]"
 #    python3 ~/tools/Sublist3r/sublist3r.py -d $domain -t $threads -o temp/sublister.txt &> /dev/null
+#    echo -e "\033[2A"
+#    echo -ne "${NORMAL}${BOLD}${SORANGE}\n[●] Subdomain Scanned  -  ${NORMAL}[${GREEN}sublist3r${TICK}${NORMAL}]${TTAB} Subdomain Found: ${LGREEN}$(cat temp/sublister.txt 2> /dev/null | wc -l )"
+    echo -ne "${NORMAL}${BOLD}${YELLOW}\n[●] Subdomain Scanning  -  ${NORMAL}[${LRED}${BLINK}SUBLIST3R_V2.0${NORMAL}]"
     python3 ~/tools/SUBLIST3R_V2.0/sublist3r.py -d $domain -t $threads -o temp/sublister.txt &> /dev/null
     echo -e "\033[2A"
-#    echo -ne "${NORMAL}${BOLD}${SORANGE}\n[●] Subdomain Scanned  -  ${NORMAL}[${GREEN}sublist3r${TICK}${NORMAL}]${TTAB} Subdomain Found: ${LGREEN}$(cat temp/sublister.txt 2> /dev/null | wc -l )"
     echo -ne "${NORMAL}${BOLD}${SORANGE}\n[●] Subdomain Scanned  -  ${NORMAL}[${GREEN}SUBLIST3R_V2.0${TICK}${NORMAL}]${TTAB} Subdomain Found: ${LGREEN}$(cat temp/sublister.txt 2> /dev/null | wc -l )"
     echo -ne "${NORMAL}${BOLD}${YELLOW}\n[●] Subdomain Scanning  -  ${NORMAL}[${LRED}${BLINK}subfinder${NORMAL}]"
     subfinder -silent -d $domain -all -t $threads -o temp/subfinder.txt &> /dev/null
