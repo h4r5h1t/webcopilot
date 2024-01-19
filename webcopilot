@@ -3,18 +3,18 @@
 # Inspired by: Garud and Pinaak by @ROX4R
 
 #Colors Output
-NORMAL="\e[0m"			
-RED="\033[0;31m" 		
-GREEN="\033[0;32m"		   
-BOLD="\033[01;01m"    	
-WHITE="\033[1;37m"		
-YELLOW="\033[1;33m"	
-LRED="\033[1;31m"		
-LGREEN="\033[1;32m"		
-LBLUE="\033[1;34m"			
-LCYAN="\033[1;36m"		
-SORANGE="\033[0;33m"		      		
-DGRAY="\033[1;30m"		
+NORMAL="\e[0m"          
+RED="\033[0;31m"        
+GREEN="\033[0;32m"         
+BOLD="\033[01;01m"      
+WHITE="\033[1;37m"      
+YELLOW="\033[1;33m" 
+LRED="\033[1;31m"       
+LGREEN="\033[1;32m"     
+LBLUE="\033[1;34m"          
+LCYAN="\033[1;36m"      
+SORANGE="\033[0;33m"                    
+DGRAY="\033[1;30m"      
 DSPACE="  "
 DTAB="\t\t"
 TSPACE="   "
@@ -213,7 +213,10 @@ title() {
 parammine() {
     echo -ne "\n${NORMAL}${BOLD}${YELLOW}[●] Endpoints Scanning:${NORMAL}${BOLD} Getting all endpoints\r"
 #    cat subdomains/alivesub.txt | gauplus --random-agent -b eot,jpg,jpeg,gif,css,tif,tiff,png,ttf,otf,woff,woff2,ico,pdf,svg,txt -t $threads -o temp/gauplus.txt
+#    cat subdomains/alivesub.txt | gau --random-agent -b eot,jpg,jpeg,gif,css,tif,tiff,png,ttf,otf,woff,woff2,ico,pdf,svg,txt -t $threads -o temp/gau.txt
 #    cat subdomains/alivesub.txt | waybackurls | anew -q temp/waybackurls.txt
+#    cat temp/gauplus.txt temp/waybackurls.txt 2> /dev/null | sed '/\[/d' | grep $domain | sort -u | urldedupe -s | anew -q subdomains/endpoints.txt
+#    cat temp/gau.txt temp/waybackurls.txt 2> /dev/null | sed '/\[/d' | grep $domain | sort -u | urldedupe -s | anew -q subdomains/endpoints.txt
     cat subdomains/alivesub.txt | python3 ~/tools/waymore/waymore.py -mode U -oU temp/waymore.txt
     cat temp/waymore.txt 2> /dev/null | sed '/\[/d' | grep $domain | sort -u | urldedupe -s | anew -q subdomains/endpoints.txt
 }

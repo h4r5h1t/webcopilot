@@ -27,7 +27,7 @@ The script first enumerate all the subdomains of the given target domain using a
 
 # Features
 
-- Subdomain Enumeration using [assetfinder](https://github.com/tomnomnom/assetfinder), [sublist3r](https://github.com/aboul3la/Sublist3r), [subfinder](https://github.com/projectdiscovery/subfinder), [amass](https://github.com/OWASP/Amass), [findomain](https://github.com/Findomain/Findomain), etc.
+- Subdomain Enumeration using [assetfinder](https://github.com/tomnomnom/assetfinder), [SUBLIST3R_V2.0](https://github.com/hxlxmjxbbxs/SUBLIST3R_V2.0), [subfinder](https://github.com/projectdiscovery/subfinder), [amass](https://github.com/OWASP/Amass), [findomain](https://github.com/Findomain/Findomain), etc.
 - Active Subdomain Enumeration using [gobuster](https://github.com/OJ/gobuster) & [amass](https://github.com/OWASP/Amass) from [SecLists/DNS](https://github.com/danielmiessler/SecLists/tree/master/Discovery/DNS) wordlist.
 - Extract titles and take screenshots of live subdomains using [aquatone](https://github.com/michenriksen/aquatone) & [httpx](https://github.com/projectdiscovery/httpx).
 - Crawl all the endpoints of the subdomains using [waymore](https://github.com/xnl-h4ck3r/waymore) and filter out XSS, SQLi, SSRF, etc parameters using [gf patterns](https://github.com/tomnomnom/gf).
