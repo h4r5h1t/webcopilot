@@ -5,6 +5,7 @@ if [ "$(id -u)" != "0" ]; then
     exit 1
 fi
 clear
+
 cd
 mkdir -p ~/tools
 mkdir -p ~/tools/temp/
@@ -37,7 +38,7 @@ cd && git clone https://github.com/sqlmapproject/sqlmap.git ~/tools/sqlmap/ 2> /
 cd && git clone https://github.com/ameenmaali/urldedupe.git ~/tools/urldedupe && cd ~/tools/urldedupe && cmake CMakeLists.txt && make && mv urldedupe /usr/bin/ 2> /dev/null
 cd && git clone https://github.com/devanshbatham/openredirex ~/tools/openredirex && cd ~/tools/openredirex && sudo chmod +x setup.sh && ./setup.sh 2> /dev/null
 cd ~/tools/ && wget https://github.com/Findomain/Findomain/releases/download/9.0.4/findomain-linux.zip && unzip findomain-linux.zip && chmod +x findomain && mv findomain /usr/bin/ 2> /dev/null
-### Replace gau, gauplus, and waybackurls with waymore by xnl-h4ck3r - Visit here: (https://github.com/xnl-h4ck3r/waymore)
+### Replace gau/gauplus, and waybackurls with waymore by xnl-h4ck3r - Visit here: (https://github.com/xnl-h4ck3r/waymore)
 cd && git clone https://github.com/xnl-h4ck3r/waymore.git ~/tools/waymore && cd ~/tools/waymore && sudo pip3 install -r requirements.txt 2> /dev/null
 
 echo "Installing Wordlists & Payloads"
