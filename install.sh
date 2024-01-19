@@ -56,7 +56,7 @@ go install -v github.com/tomnomnom/anew@latest 2> /dev/null
 go install -v github.com/tomnomnom/gf@latest 2> /dev/null
 go install -v github.com/michenriksen/aquatone@latest 2> /dev/null
 go install -v github.com/tomnomnom/assetfinder@latest 2> /dev/null
-### bp0lr/gauplus discontinued - Visit here: (https://github.com/lc/gau)
+### Switch back to gau by lc (bp0lr/gauplus - discontinued) - Visit here: (https://github.com/lc/gau)
 # go install -v github.com/bp0lr/gauplus@latest 2> /dev/null
 go install -v github.com/lc/gau/v2/cmd/gau@latest 2> /dev/null
 go install -v github.com/projectdiscovery/httpx/cmd/httpx@latest 2> /dev/null
