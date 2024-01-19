@@ -224,12 +224,18 @@ parammine() {
 
 gfpt(){
     echo -ne "${NORMAL}${BOLD}${YELLOW}[●] Endpoints Scanning:${NORMAL}${BOLD} Filtering all endpoints\r"
-    cat subdomains/endpoints.txt | gf xss | sed "s/'\|(\|)//g" | qsreplace "FUZZ" 2> /dev/null | anew -q patterns/xss.txt
-    cat subdomains/endpoints.txt | gf ssrf | sed "s/'\|(\|)//g" | qsreplace "FUZZ" 2> /dev/null | anew -q patterns/ssrf.txt
-    cat subdomains/endpoints.txt | gf sqli | sed "s/'\|(\|)//g" | qsreplace "FUZZ" 2> /dev/null | anew -q patterns/sqli.txt
-    cat subdomains/endpoints.txt | gf lfi | sed "s/'\|(\|)//g" | qsreplace "FUZZ" 2> /dev/null | anew -q patterns/lfi.txt
-    cat subdomains/endpoints.txt | gf rce | sed "s/'\|(\|)//g" | qsreplace "FUZZ" 2> /dev/null | anew -q patterns/rce.txt
-    cat subdomains/endpoints.txt | gf redirect | sed "s/'\|(\|)//g" | qsreplace "FUZZ" 2> /dev/null | anew -q patterns/openredirect.txt 
+#    cat subdomains/endpoints.txt | gf xss | sed "s/'\|(\|)//g" | qsreplace "FUZZ" 2> /dev/null | anew -q patterns/xss.txt
+#    cat subdomains/endpoints.txt | gf ssrf | sed "s/'\|(\|)//g" | qsreplace "FUZZ" 2> /dev/null | anew -q patterns/ssrf.txt
+#    cat subdomains/endpoints.txt | gf sqli | sed "s/'\|(\|)//g" | qsreplace "FUZZ" 2> /dev/null | anew -q patterns/sqli.txt
+#    cat subdomains/endpoints.txt | gf lfi | sed "s/'\|(\|)//g" | qsreplace "FUZZ" 2> /dev/null | anew -q patterns/lfi.txt
+#    cat subdomains/endpoints.txt | gf rce | sed "s/'\|(\|)//g" | qsreplace "FUZZ" 2> /dev/null | anew -q patterns/rce.txt
+#    cat subdomains/endpoints.txt | gf redirect | sed "s/'\|(\|)//g" | qsreplace "FUZZ" 2> /dev/null | anew -q patterns/openredirect.txt 
+    cat subdomains/endpoints.txt | uro | gf xss | sed "s/'\|(\|)//g" | qsreplace "FUZZ" 2> /dev/null | anew -q patterns/xss.txt
+    cat subdomains/endpoints.txt | uro | gf ssrf | sed "s/'\|(\|)//g" | qsreplace "FUZZ" 2> /dev/null | anew -q patterns/ssrf.txt
+    cat subdomains/endpoints.txt | uro | gf sqli | sed "s/'\|(\|)//g" | qsreplace "FUZZ" 2> /dev/null | anew -q patterns/sqli.txt
+    cat subdomains/endpoints.txt | uro | gf lfi | sed "s/'\|(\|)//g" | qsreplace "FUZZ" 2> /dev/null | anew -q patterns/lfi.txt
+    cat subdomains/endpoints.txt | uro | gf rce | sed "s/'\|(\|)//g" | qsreplace "FUZZ" 2> /dev/null | anew -q patterns/rce.txt
+    cat subdomains/endpoints.txt | uro | gf redirect | sed "s/'\|(\|)//g" | qsreplace "FUZZ" 2> /dev/null | anew -q patterns/openredirect.txt 
 
     echo -ne "${NORMAL}${BOLD}${LGREEN}[●] Endpoints Scanning Completed for Subdomains of ${NORMAL}${BOLD}${RED}$domain${RED}${WHITE}\t Total: ${GREEN}$(cat subdomains/endpoints.txt 2> /dev/null | wc -l )"
     sleep 2s
