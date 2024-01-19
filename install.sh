@@ -96,6 +96,7 @@ cd && git clone https://github.com/devanshbatham/openredirex ~/tools/openredirex
 cd ~/tools/ && wget https://github.com/Findomain/Findomain/releases/download/9.0.4/findomain-linux.zip && unzip findomain-linux.zip && chmod +x findomain && mv findomain /usr/bin/ 2> /dev/null
 ### Replace gau/gauplus, and waybackurls with waymore by xnl-h4ck3r - Visit here: (https://github.com/xnl-h4ck3r/waymore)
 cd && git clone https://github.com/xnl-h4ck3r/waymore.git ~/tools/waymore && cd ~/tools/waymore && sudo pip3 install -r requirements.txt 2> /dev/null
+pip3 install uro
 
 echo "Installing Wordlists & Payloads"
 cd ~/wordlists/ && wget https://raw.githubusercontent.com/danielmiessler/SecLists/master/Discovery/Web-Content/big.txt
