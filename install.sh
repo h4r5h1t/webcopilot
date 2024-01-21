@@ -13,19 +13,77 @@ mkdir -p ~/.gf
 mkdir -p ~/wordlists
 mkdir -p ~/wordlists/payloads/
 
-echo "Installing all dependencies"
-cd
-sudo apt-get install git -y 2> /dev/null
-sudo apt-get install python3 -y 2> /dev/null
-sudo apt-get install python3-pip -y 2> /dev/null
-sudo apt-get install ruby -y 2> /dev/null
-sudo apt-get install golang-go -y 2> /dev/null
-sudo apt install snapd -y 2> /dev/null
-sudo apt install cmake -y 2> /dev/null
-sudo apt install jq -y 2> /dev/null
-sudo apt install gobuster -y 2> /dev/null
-sudo snap install chromium 2> /dev/null
-sudo apt-get install -y parallel 2> /dev/null
+echo "Updating the system"
+sudo apt-get update -y 2> /dev/null
+
+echo "Installing all dependencies and checking is installed or not"
+
+if ! command -v git &> /dev/null
+then
+    echo "git could not be found"
+    sudo apt-get install git -y 2> /dev/null
+fi
+
+if ! command -v python3 &> /dev/null
+then
+    echo "python3 could not be found"
+    sudo apt-get install python3 -y 2> /dev/null
+fi
+
+if ! command -v python3-pip &> /dev/null
+then
+    echo "python3-pip could not be found"
+    sudo apt-get install python3-pip -y 2> /dev/null
+fi
+
+if ! command -v ruby &> /dev/null
+then
+    echo "ruby could not be found"
+    sudo apt-get install ruby -y 2> /dev/null
+fi
+
+if ! command -v golang-go &> /dev/null
+then
+    echo "golang-go could not be found"
+    sudo apt-get install golang-go -y 2> /dev/null
+fi
+
+if ! command -v snapd &> /dev/null
+then
+    echo "snapd could not be found"
+    sudo apt install snapd -y 2> /dev/null
+fi
+
+if ! command -v cmake &> /dev/null
+then
+    echo "cmake could not be found"
+    sudo apt install cmake -y 2> /dev/null
+fi
+
+if ! command -v jq &> /dev/null
+then
+    echo "jq could not be found"
+    sudo apt install jq -y 2> /dev/null
+fi
+
+if ! command -v gobuster &> /dev/null
+then
+    echo "gobuster could not be found"
+    sudo apt install gobuster -y 2> /dev/null
+fi
+
+if ! command -v chromium &> /dev/null
+then
+    echo "chromium could not be found"
+    sudo snap install chromium 2> /dev/null
+fi
+
+if ! command -v parallel &> /dev/null
+then
+    echo "parallel could not be found"
+    sudo apt-get install -y parallel 2> /dev/null
+fi
+
 sleep 2s
 clear
 
@@ -45,23 +103,110 @@ cd ~/wordlists/ && wget https://raw.githubusercontent.com/Bo0oM/fuzz.txt/master/
 cd ~/wordlists/payloads/ && wget https://github.com/R0X4R/Garud/edit/master/payloads/lfi.txt
 sleep 2s
 echo "Installing go-lang tools"
-go get -u github.com/tomnomnom/anew 2> /dev/null
-go get -u github.com/tomnomnom/gf 2> /dev/null
-go get github.com/michenriksen/aquatone 2> /dev/null
-go get -u github.com/tomnomnom/assetfinder 2> /dev/null
-GO111MODULE=on go get -u -v github.com/bp0lr/gauplus 2> /dev/null
-GO111MODULE=on go get -v github.com/projectdiscovery/httpx/cmd/httpx 2> /dev/null
-go get -v github.com/OWASP/Amass/v3/... 2> /dev/null
-go get github.com/tomnomnom/waybackurls 2> /dev/null
-go get github.com/Emoe/kxss 2> /dev/null
-go get github.com/haccer/subjack 2> /dev/null
-go get -u github.com/tomnomnom/qsreplace 2> /dev/null
-cd ~/tools/temp/ && git clone https://github.com/projectdiscovery/dnsx.git; cd dnsx/cmd/dnsx; go build; mv dnsx /usr/bin/ &> /dev/null 
-cd ~/tools/temp/ && git clone https://github.com/hahwul/dalfox && cd dalfox && go install 2> /dev/null
-cd ~/tools/temp/ && git clone https://github.com/dwisiswant0/crlfuzz && cd crlfuzz/cmd/crlfuzz && go build . && sudo mv crlfuzz /usr/bin/ 2> /dev/null
-cd ~/tools/temp/ && git clone https://github.com/projectdiscovery/nuclei.git && cd nuclei/v2/cmd/nuclei && go build && mv nuclei /usr/bin/ 2> /dev/null
-cd ~/tools/temp/ && git clone https://github.com/projectdiscovery/subfinder.git && cd subfinder/v2/cmd/subfinder && go build && mv subfinder /usr/bin/ 2> /dev/null
-cd ~/tools/temp/ && wget https://github.com/OWASP/Amass/releases/download/v3.13.4/amass_linux_i386.zip && unzip amass_linux_i386.zip && cd amass_linux_i386 && mv amass /usr/bin/ 2> /dev/null
+if ! command -v anew &> /dev/null
+then
+    echo "anew could not be found"
+    go get -u github.com/tomnomnom/anew@latest 2> /dev/null
+fi
+
+if ! command -v gf &> /dev/null
+then
+    echo "gf could not be found"
+    go get -u github.com/tomnomnom/gf@latest 2> /dev/null
+fi
+
+if ! command -v assetfinder &> /dev/null
+then
+    echo "assetfinder could not be found"
+    go install github.com/tomnomnom/assetfinder@latest 2> /dev/null
+fi
+
+if ! command -v aquatone &> /dev/null
+then
+    echo "aquatone could not be found"
+    go install github.com/michenriksen/aquatone@latest 2> /dev/null
+fi
+
+if ! command -v httpx &> /dev/null
+then
+    echo "httpx could not be found"
+    go install -u github.com/projectdiscovery/httpx/cmd/httpx@latest 2> /dev/null
+fi
+
+if ! command -v kxss &> /dev/null
+then
+    echo "kxss could not be found"
+    go install github.com/Emoe/kxss@latest 2> /dev/null
+fi
+
+if ! command -v subjack &> /dev/null
+then
+    echo "subjack could not be found"
+    go install github.com/haccer/subjack@latest 2> /dev/null
+fi
+
+if ! command -v qsreplace &> /dev/null
+then
+    echo "qsreplace could not be found"
+    go install -u github.com/tomnomnom/qsreplace@latest 2> /dev/null
+fi
+
+if ! command -v waybackurls &> /dev/null
+then
+    echo "waybackurls could not be found"
+    go install github.com/tomnomnom/waybackurls@latest 2> /dev/null
+fi
+
+if ! command -v gauplus &> /dev/null
+then
+    echo "gauplus could not be found"
+    GO111MODULE=on go get -u -v github.com/bp0lr/gauplus 2> /dev/null
+fi
+
+if ! command -v httpx &> /dev/null
+then
+    echo "httpx could not be found"
+    GO111MODULE=on go get -v github.com/projectdiscovery/httpx/cmd/httpx@latest 2> /dev/null
+fi
+
+echo "Installing other tools"
+
+if ! command -v dnsx &> /dev/null
+then
+    echo "dnsx could not be found"
+    go install -v github.com/projectdiscovery/dnsx/cmd/dnsx@latest 2> /dev/null
+fi
+
+if ! command -v dalfox &> /dev/null
+then
+    echo "dalfox could not be found"
+    go install github.com/hahwul/dalfox/v2@latest 2> /dev/null
+fi
+
+if ! command -v crlfuzz &> /dev/null
+then
+    echo "crlfuzz could not be found"
+    go install github.com/dwisiswant0/crlfuzz/cmd/crlfuzz@latest 2> /dev/null
+fi
+
+if ! command -v nuclei &> /dev/null
+then
+    echo "nuclei could not be found"
+    go install github.com/projectdiscovery/nuclei/v2/cmd/nuclei@latest 2> /dev/null
+fi
+
+if ! command -v subfinder &> /dev/null
+then
+    echo "subfinder could not be found"
+    go install github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest 2> /dev/null
+fi
+
+if ! command -v amass &> /dev/null
+then
+    echo "amass could not be found"
+    go install -v github.com/owasp-amass/amass/v4/...@master 2> /dev/null
+fi
+
 cd
 cp -r ~/go/src/github.com/tomnomnom/gf/examples ~/.gf/
 echo 'source ~/go/src/github.com/tomnomnom/gf/gf-completion.bash' >> ~/.bashrc
