@@ -18,10 +18,6 @@ echo "Updating the system"
 sudo apt-get update -y 2> /dev/null
 
 echo "Installing all dependencies and checking is installed or not"
-<<<<<<< HEAD
-
-=======
->>>>>>> main
 if ! command -v git &> /dev/null
 then
     echo "git could not be found"
@@ -87,10 +83,6 @@ then
     echo "parallel could not be found"
     sudo apt-get install -y parallel 2> /dev/null
 fi
-<<<<<<< HEAD
-
-=======
->>>>>>> main
 sleep 2s
 clear
 
@@ -120,35 +112,18 @@ echo "Installing go-lang tools"
 if ! command -v anew &> /dev/null
 then
     echo "anew could not be found"
-<<<<<<< HEAD
-    go get -u github.com/tomnomnom/anew@latest 2> /dev/null
-=======
 go install -v github.com/tomnomnom/anew@latest 2> /dev/null
->>>>>>> main
 fi
 
 if ! command -v gf &> /dev/null
 then
     echo "gf could not be found"
-<<<<<<< HEAD
-    go get -u github.com/tomnomnom/gf@latest 2> /dev/null
-fi
-
-if ! command -v assetfinder &> /dev/null
-then
-    echo "assetfinder could not be found"
-    go install github.com/tomnomnom/assetfinder@latest 2> /dev/null
-=======
 go install -v github.com/tomnomnom/gf@latest 2> /dev/null
->>>>>>> main
 fi
 
 if ! command -v aquatone &> /dev/null
 then
     echo "aquatone could not be found"
-<<<<<<< HEAD
-    go install github.com/michenriksen/aquatone@latest 2> /dev/null
-=======
 go install -v github.com/michenriksen/aquatone@latest 2> /dev/null
 fi
 
@@ -164,100 +139,21 @@ fi
 #    echo "gauplus could not be found"
 # go install -v github.com/bp0lr/gauplus@latest 2> /dev/null
 # fi
-
 if ! command -v gau &> /dev/null
 then
     echo "gau could not be found"
 go install -v github.com/lc/gau/v2/cmd/gau@latest 2> /dev/null
->>>>>>> main
 fi
 
 if ! command -v httpx &> /dev/null
 then
     echo "httpx could not be found"
-<<<<<<< HEAD
-    go install -u github.com/projectdiscovery/httpx/cmd/httpx@latest 2> /dev/null
-fi
-
-if ! command -v kxss &> /dev/null
-then
-    echo "kxss could not be found"
-    go install github.com/Emoe/kxss@latest 2> /dev/null
-fi
-
-if ! command -v subjack &> /dev/null
-then
-    echo "subjack could not be found"
-    go install github.com/haccer/subjack@latest 2> /dev/null
-fi
-
-if ! command -v qsreplace &> /dev/null
-then
-    echo "qsreplace could not be found"
-    go install -u github.com/tomnomnom/qsreplace@latest 2> /dev/null
-fi
-
-if ! command -v waybackurls &> /dev/null
-then
-    echo "waybackurls could not be found"
-    go install github.com/tomnomnom/waybackurls@latest 2> /dev/null
-fi
-
-if ! command -v gauplus &> /dev/null
-then
-    echo "gauplus could not be found"
-    GO111MODULE=on go get -u -v github.com/bp0lr/gauplus 2> /dev/null
-fi
-
-if ! command -v httpx &> /dev/null
-then
-    echo "httpx could not be found"
-    GO111MODULE=on go get -v github.com/projectdiscovery/httpx/cmd/httpx@latest 2> /dev/null
-fi
-
-echo "Installing other tools"
-
-if ! command -v dnsx &> /dev/null
-then
-    echo "dnsx could not be found"
-    go install -v github.com/projectdiscovery/dnsx/cmd/dnsx@latest 2> /dev/null
-fi
-
-if ! command -v dalfox &> /dev/null
-then
-    echo "dalfox could not be found"
-    go install github.com/hahwul/dalfox/v2@latest 2> /dev/null
-fi
-
-if ! command -v crlfuzz &> /dev/null
-then
-    echo "crlfuzz could not be found"
-    go install github.com/dwisiswant0/crlfuzz/cmd/crlfuzz@latest 2> /dev/null
-fi
-
-if ! command -v nuclei &> /dev/null
-then
-    echo "nuclei could not be found"
-    go install github.com/projectdiscovery/nuclei/v2/cmd/nuclei@latest 2> /dev/null
-fi
-
-if ! command -v subfinder &> /dev/null
-then
-    echo "subfinder could not be found"
-    go install github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest 2> /dev/null
-=======
 go install -v github.com/projectdiscovery/httpx/cmd/httpx@latest 2> /dev/null
->>>>>>> main
 fi
 
 if ! command -v amass &> /dev/null
 then
     echo "amass could not be found"
-<<<<<<< HEAD
-    go install -v github.com/owasp-amass/amass/v4/...@master 2> /dev/null
-fi
-
-=======
 go install -v github.com/owasp-amass/amass/v4/...@master 2> /dev/null
 fi
 
@@ -317,7 +213,6 @@ fi
 
 # cd ~/tools/temp/ && wget https://github.com/owasp-amass/amass/releases/download/v4.2.0/amass_Linux_i386.zip && unzip amass_linux_i386.zip && cd amass_linux_i386 && mv amass /usr/bin/amass 2> /dev/null
 
->>>>>>> main
 cd
 cp -r ~/go/src/github.com/tomnomnom/gf/examples ~/.gf/
 echo 'source ~/go/src/github.com/tomnomnom/gf/gf-completion.bash' >> ~/.bashrc
