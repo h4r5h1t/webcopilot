@@ -23,14 +23,14 @@
 
 **WebCopilot** is an automation tool designed to enumerate subdomains of the target and detect bugs using different open-source tools.
 
-The script first enumerate all the subdomains of the given target domain using assetfinder, sublister, subfinder, amass, findomain, hackertarget, riddler and crt then do active subdomain enumeration using gobuster from SecLists wordlist then filters out all the live subdomains using dnsx then it extract titles of the subdomains using httpx & scans for subdomain takeover using subjack. Then it uses gauplus & waybackurls to crawl all the endpoints of the given subdomains then it use gf patterns to filters out xss, lfi, ssrf, sqli, open redirect & rce parameters from that given subdomains, and then it scans for vulnerabilities on the subdomains using different open-source tools (like kxss, dalfox, openredirex, nuclei, etc). Then it'll print out the result of the scan and save all the output in a specified directory. 
+The script first enumerate all the subdomains of the given target domain using assetfinder, sublister, subfinder, amass, findomain, hackertarget, riddler and crt then do active subdomain enumeration using gobuster from SecLists wordlist then filters out all the live subdomains using dnsx then it extract titles of the subdomains using httpx & scans for subdomain takeover using subjack. Then it uses gau/gauplus, waybackurls, or waymore to crawl all the endpoints of the given subdomains then it use gf patterns to filters out xss, lfi, ssrf, sqli, open redirect & rce parameters from that given subdomains, and then it scans for vulnerabilities on the subdomains using different open-source tools (like kxss, dalfox, openredirex, nuclei, etc). Then it'll print out the result of the scan and save all the output in a specified directory. 
 
 # Features
 
-- Subdomain Enumeration using [assetfinder](https://github.com/tomnomnom/assetfinder), [sublist3r](https://github.com/aboul3la/Sublist3r), [subfinder](https://github.com/projectdiscovery/subfinder), [amass](https://github.com/OWASP/Amass), [findomain](https://github.com/Findomain/Findomain), etc.
+- Subdomain Enumeration using [assetfinder](https://github.com/tomnomnom/assetfinder), [SUBLIST3R_V2.0](https://github.com/hxlxmjxbbxs/SUBLIST3R_V2.0), [subfinder](https://github.com/projectdiscovery/subfinder), [amass](https://github.com/OWASP/Amass), [findomain](https://github.com/Findomain/Findomain), etc.
 - Active Subdomain Enumeration using [gobuster](https://github.com/OJ/gobuster) & [amass](https://github.com/OWASP/Amass) from [SecLists/DNS](https://github.com/danielmiessler/SecLists/tree/master/Discovery/DNS) wordlist.
 - Extract titles and take screenshots of live subdomains using [aquatone](https://github.com/michenriksen/aquatone) & [httpx](https://github.com/projectdiscovery/httpx).
-- Crawl all the endpoints of the subdomains using [waybackurls](https://github.com/tomnomnom/waybackurls) & [gauplus](https://github.com/bp0lr/gauplus) and filter out XSS, SQLi, SSRF, etc parameters using [gf patterns](https://github.com/tomnomnom/gf).
+- Crawl all the endpoints of the subdomains using [waymore](https://github.com/xnl-h4ck3r/waymore) and filter out XSS, SQLi, SSRF, etc parameters using [gf patterns](https://github.com/tomnomnom/gf).
 - Run different open-source tools (like [dalfox](https://github.com/hahwul/dalfox), [nuclei](https://github.com/projectdiscovery/nuclei), [sqlmap](https://github.com/sqlmapproject/sqlmap), etc) to search for vulnerabilities on these parameters and then save all the outputs in the folder.
 
 
@@ -101,7 +101,11 @@ git clone https://github.com/h4r5h1t/webcopilot && cd webcopilot/ && chmod +x we
 <a href="https://github.com/OWASP/Amass">Amass</a> •
 <a href="https://github.com/bp0lr/gauplus">gauplus</a> •
 <a href="https://github.com/tomnomnom/waybackurls">waybackurls</a> •
-<a href="https://github.com/dwisiswant0/crlfuzz">crlfuzz</a>
+<a href="https://github.com/dwisiswant0/crlfuzz">crlfuzz</a> •
+<a href="https://github.com/lc/gau">gau</a> •
+<a href="https://github.com/xnl-h4ck3r/waymore">waymore</a> •
+<a href="https://github.com/hxlxmjxbbxs/SUBLIST3R_V2.0">SUBLIST3R_V2.0</a> •
+<a href="https://github.com/s0md3v/uro">uro</a>
 </p>
 
 ## Running WebCopilot
@@ -223,7 +227,7 @@ WebCopilot is inspired from [Garud](https://github.com/R0X4R/Garud) & [Pinaak](h
 
 #### Thanks to the authors of the tools & wordlists used in this script.
 
-[@aboul3la](https://github.com/aboul3la) [@tomnomnom](https://github.com/tomnomnom) [@lc](https://github.com/lc) [@hahwul](https://github.com/hahwul) [@projectdiscovery](https://github.com/projectdiscovery) [@maurosoria](https://github.com/maurosoria) [@shelld3v](https://github.com/shelld3v) [@devanshbatham](https://github.com/devanshbatham) [@michenriksen](https://github.com/michenriksen) [@defparam](https://github.com/defparam/) [@projectdiscovery](https://github.com/projectdiscovery) [@bp0lr](https://github.com/bp0lr/) [@ameenmaali](https://github.com/ameenmaali) [@sqlmapproject](https://github.com/sqlmapproject/sqlmap) [@dwisiswant0](https://github.com/dwisiswant0) [@OWASP](https://github.com/OWASP/) [@OJ](https://github.com/OJ/) [@Findomain](https://github.com/Findomain/Findomain) [@danielmiessler](https://github.com/danielmiessler) [@1ndianl33t](https://github.com/1ndianl33t) [@ROX4R](https://github.com/R0X4R/)
+[@aboul3la](https://github.com/aboul3la) [@tomnomnom](https://github.com/tomnomnom) [@lc](https://github.com/lc) [@hahwul](https://github.com/hahwul) [@projectdiscovery](https://github.com/projectdiscovery) [@maurosoria](https://github.com/maurosoria) [@shelld3v](https://github.com/shelld3v) [@devanshbatham](https://github.com/devanshbatham) [@michenriksen](https://github.com/michenriksen) [@defparam](https://github.com/defparam/) [@projectdiscovery](https://github.com/projectdiscovery) [@bp0lr](https://github.com/bp0lr/) [@ameenmaali](https://github.com/ameenmaali) [@sqlmapproject](https://github.com/sqlmapproject/sqlmap) [@dwisiswant0](https://github.com/dwisiswant0) [@OWASP](https://github.com/OWASP/) [@OJ](https://github.com/OJ/) [@Findomain](https://github.com/Findomain/Findomain) [@danielmiessler](https://github.com/danielmiessler) [@1ndianl33t](https://github.com/1ndianl33t) [@ROX4R](https://github.com/R0X4R/) [@xnl-h4ck3r](https://github.com/xnl-h4ck3r/) [@hxlxmjxbbxs](https://github.com/hxlxmjxbbxs/) [@lc](https://github.com/lc/) [@s0md3v](https://github.com/s0md3v/)
 
 <table>
 <td>

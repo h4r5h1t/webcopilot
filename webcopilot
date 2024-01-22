@@ -3,18 +3,18 @@
 # Inspired by: Garud and Pinaak by @ROX4R
 
 #Colors Output
-NORMAL="\e[0m"			
-RED="\033[0;31m" 		
-GREEN="\033[0;32m"		   
-BOLD="\033[01;01m"    	
-WHITE="\033[1;37m"		
-YELLOW="\033[1;33m"	
-LRED="\033[1;31m"		
-LGREEN="\033[1;32m"		
-LBLUE="\033[1;34m"			
-LCYAN="\033[1;36m"		
-SORANGE="\033[0;33m"		      		
-DGRAY="\033[1;30m"		
+NORMAL="\e[0m"          
+RED="\033[0;31m"        
+GREEN="\033[0;32m"         
+BOLD="\033[01;01m"      
+WHITE="\033[1;37m"      
+YELLOW="\033[1;33m" 
+LRED="\033[1;31m"       
+LGREEN="\033[1;32m"     
+LBLUE="\033[1;34m"          
+LCYAN="\033[1;36m"      
+SORANGE="\033[0;33m"                    
+DGRAY="\033[1;30m"      
 DSPACE="  "
 DTAB="\t\t"
 TSPACE="   "
@@ -145,10 +145,14 @@ subenum() {
     assetfinder --subs-only $domain | sort -u | anew -q temp/assetfinder.txt
     echo -e "\033[2A"
     echo -ne "${NORMAL}${BOLD}${SORANGE}\n[●] Subdomain Scanned  -  ${NORMAL}[${GREEN}assetfinder${TICK}${NORMAL}]${DTAB} Subdomain Found: ${LGREEN}$(cat temp/assetfinder.txt 2> /dev/null | wc -l )"
-    echo -ne "${NORMAL}${BOLD}${YELLOW}\n[●] Subdomain Scanning  -  ${NORMAL}[${LRED}${BLINK}sublist3r${NORMAL}]"
-    python3 ~/tools/Sublist3r/sublist3r.py -d $domain -t $threads -o temp/sublister.txt &> /dev/null
+#    echo -ne "${NORMAL}${BOLD}${YELLOW}\n[●] Subdomain Scanning  -  ${NORMAL}[${LRED}${BLINK}sublist3r${NORMAL}]"
+#    python3 ~/tools/Sublist3r/sublist3r.py -d $domain -t $threads -o temp/sublister.txt &> /dev/null
+#    echo -e "\033[2A"
+#    echo -ne "${NORMAL}${BOLD}${SORANGE}\n[●] Subdomain Scanned  -  ${NORMAL}[${GREEN}sublist3r${TICK}${NORMAL}]${TTAB} Subdomain Found: ${LGREEN}$(cat temp/sublister.txt 2> /dev/null | wc -l )"
+    echo -ne "${NORMAL}${BOLD}${YELLOW}\n[●] Subdomain Scanning  -  ${NORMAL}[${LRED}${BLINK}SUBLIST3R_V2.0${NORMAL}]"
+    python3 ~/tools/SUBLIST3R_V2.0/sublist3r.py -d $domain -t $threads -o temp/sublister.txt &> /dev/null
     echo -e "\033[2A"
-    echo -ne "${NORMAL}${BOLD}${SORANGE}\n[●] Subdomain Scanned  -  ${NORMAL}[${GREEN}sublist3r${TICK}${NORMAL}]${TTAB} Subdomain Found: ${LGREEN}$(cat temp/sublister.txt 2> /dev/null | wc -l )"
+    echo -ne "${NORMAL}${BOLD}${SORANGE}\n[●] Subdomain Scanned  -  ${NORMAL}[${GREEN}SUBLIST3R_V2.0${TICK}${NORMAL}]${TTAB} Subdomain Found: ${LGREEN}$(cat temp/sublister.txt 2> /dev/null | wc -l )"
     echo -ne "${NORMAL}${BOLD}${YELLOW}\n[●] Subdomain Scanning  -  ${NORMAL}[${LRED}${BLINK}subfinder${NORMAL}]"
     subfinder -silent -d $domain -all -t $threads -o temp/subfinder.txt &> /dev/null
     echo -e "\033[2A"
@@ -209,19 +213,29 @@ title() {
 
 parammine() {
     echo -ne "\n${NORMAL}${BOLD}${YELLOW}[●] Endpoints Scanning:${NORMAL}${BOLD} Getting all endpoints\r"
-    cat subdomains/alivesub.txt | gauplus --random-agent -b eot,jpg,jpeg,gif,css,tif,tiff,png,ttf,otf,woff,woff2,ico,pdf,svg,txt -t $threads -o temp/gauplus.txt
-    cat subdomains/alivesub.txt | waybackurls | anew -q temp/waybackurls.txt
-    cat temp/gauplus.txt temp/waybackurls.txt 2> /dev/null | sed '/\[/d' | grep $domain | sort -u | urldedupe -s | anew -q subdomains/endpoints.txt
+#    cat subdomains/alivesub.txt | gauplus --random-agent -b eot,jpg,jpeg,gif,css,tif,tiff,png,ttf,otf,woff,woff2,ico,pdf,svg,txt -t $threads -o temp/gauplus.txt
+#    cat subdomains/alivesub.txt | gau --random-agent -b eot,jpg,jpeg,gif,css,tif,tiff,png,ttf,otf,woff,woff2,ico,pdf,svg,txt -t $threads -o temp/gau.txt
+#    cat subdomains/alivesub.txt | waybackurls | anew -q temp/waybackurls.txt
+#    cat temp/gauplus.txt temp/waybackurls.txt 2> /dev/null | sed '/\[/d' | grep $domain | sort -u | urldedupe -s | anew -q subdomains/endpoints.txt
+#    cat temp/gau.txt temp/waybackurls.txt 2> /dev/null | sed '/\[/d' | grep $domain | sort -u | urldedupe -s | anew -q subdomains/endpoints.txt
+    cat subdomains/alivesub.txt | python3 ~/tools/waymore/waymore.py -mode U -oU temp/waymore.txt
+    cat temp/waymore.txt 2> /dev/null | sed '/\[/d' | grep $domain | sort -u | urldedupe -s | anew -q subdomains/endpoints.txt
 }
 
 gfpt(){
     echo -ne "${NORMAL}${BOLD}${YELLOW}[●] Endpoints Scanning:${NORMAL}${BOLD} Filtering all endpoints\r"
-    cat subdomains/endpoints.txt | gf xss | sed "s/'\|(\|)//g" | qsreplace "FUZZ" 2> /dev/null | anew -q patterns/xss.txt
-    cat subdomains/endpoints.txt | gf ssrf | sed "s/'\|(\|)//g" | qsreplace "FUZZ" 2> /dev/null | anew -q patterns/ssrf.txt
-    cat subdomains/endpoints.txt | gf sqli | sed "s/'\|(\|)//g" | qsreplace "FUZZ" 2> /dev/null | anew -q patterns/sqli.txt
-    cat subdomains/endpoints.txt | gf lfi | sed "s/'\|(\|)//g" | qsreplace "FUZZ" 2> /dev/null | anew -q patterns/lfi.txt
-    cat subdomains/endpoints.txt | gf rce | sed "s/'\|(\|)//g" | qsreplace "FUZZ" 2> /dev/null | anew -q patterns/rce.txt
-    cat subdomains/endpoints.txt | gf redirect | sed "s/'\|(\|)//g" | qsreplace "FUZZ" 2> /dev/null | anew -q patterns/openredirect.txt 
+#    cat subdomains/endpoints.txt | gf xss | sed "s/'\|(\|)//g" | qsreplace "FUZZ" 2> /dev/null | anew -q patterns/xss.txt
+#    cat subdomains/endpoints.txt | gf ssrf | sed "s/'\|(\|)//g" | qsreplace "FUZZ" 2> /dev/null | anew -q patterns/ssrf.txt
+#    cat subdomains/endpoints.txt | gf sqli | sed "s/'\|(\|)//g" | qsreplace "FUZZ" 2> /dev/null | anew -q patterns/sqli.txt
+#    cat subdomains/endpoints.txt | gf lfi | sed "s/'\|(\|)//g" | qsreplace "FUZZ" 2> /dev/null | anew -q patterns/lfi.txt
+#    cat subdomains/endpoints.txt | gf rce | sed "s/'\|(\|)//g" | qsreplace "FUZZ" 2> /dev/null | anew -q patterns/rce.txt
+#    cat subdomains/endpoints.txt | gf redirect | sed "s/'\|(\|)//g" | qsreplace "FUZZ" 2> /dev/null | anew -q patterns/openredirect.txt 
+    cat subdomains/endpoints.txt | uro | gf xss | sed "s/'\|(\|)//g" | qsreplace "FUZZ" 2> /dev/null | anew -q patterns/xss.txt
+    cat subdomains/endpoints.txt | uro | gf ssrf | sed "s/'\|(\|)//g" | qsreplace "FUZZ" 2> /dev/null | anew -q patterns/ssrf.txt
+    cat subdomains/endpoints.txt | uro | gf sqli | sed "s/'\|(\|)//g" | qsreplace "FUZZ" 2> /dev/null | anew -q patterns/sqli.txt
+    cat subdomains/endpoints.txt | uro | gf lfi | sed "s/'\|(\|)//g" | qsreplace "FUZZ" 2> /dev/null | anew -q patterns/lfi.txt
+    cat subdomains/endpoints.txt | uro | gf rce | sed "s/'\|(\|)//g" | qsreplace "FUZZ" 2> /dev/null | anew -q patterns/rce.txt
+    cat subdomains/endpoints.txt | uro | gf redirect | sed "s/'\|(\|)//g" | qsreplace "FUZZ" 2> /dev/null | anew -q patterns/openredirect.txt 
 
     echo -ne "${NORMAL}${BOLD}${LGREEN}[●] Endpoints Scanning Completed for Subdomains of ${NORMAL}${BOLD}${RED}$domain${RED}${WHITE}\t Total: ${GREEN}$(cat subdomains/endpoints.txt 2> /dev/null | wc -l )"
     sleep 2s
@@ -271,7 +285,7 @@ takeover(){
 openredirect(){
     echo -ne "${NORMAL}${BOLD}${YELLOW}\n[●] Vulnerabilities Scanning  -  ${NORMAL}[${GREEN}${BLINK}Open Redirect${NORMAL}]\r"
     cat patterns/openredirect | qsreplace "http://www.evil.com/" 2> /dev/null | anew -q temp/openredirect.txt
-    python3 ~/tools/OpenRedireX/openredirex.py -l temp/openredirect.txt --keyword FUZZ -p ~/tools/OpenRedireX/payloads.txt 2> /dev/null | grep "^http" | sed -r -i "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g" | anew -q vulnerabilities/openredireX.txt &> /dev/null
+    python3 ~/tools/openredirex/openredirex.py -l temp/openredirect.txt --keyword FUZZ -p ~/tools/openredirex/payloads.txt 2> /dev/null | grep "^http" | sed -r -i "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g" | anew -q vulnerabilities/openredirex.txt &> /dev/null
     cat temp/opredirect.txt | xargs -P 50 -I % bash -c "curl -s  -H \"X-Bugbounty: Testing\" -H \"User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36\" --insecure -iL '%' | grep \"Evil.Com - We get it...Daily\" && echo -e \"[${RED}POTENTIAL OPREDIRECT${NORMAL}] - % \n \"" 2> /dev/null | grep "POTENTIAL OPREDIRECT" | anew vulnerabilities/openredirect.txt &> /dev/null
     echo -ne "${NORMAL}${BOLD}${SORANGE}[●] Vulnerabilities Scanned  -  ${NORMAL}[${RED}Open redirect${TICK}${NORMAL}]\t Found: ${GREEN}$(cat vulnerabilities/openredirect.txt 2> /dev/null | wc -l )"
 }
