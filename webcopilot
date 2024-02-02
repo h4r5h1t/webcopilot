@@ -2,6 +2,8 @@
 # Coded by: Harshit Raj Singh aKa G!2m0 @h4r5h1t
 # Inspired by: Garud and Pinaak by @ROX4R
 
+VERSION="1.0.0"
+
 #Colors Output
 NORMAL="\e[0m"			
 RED="\033[0;31m" 		
@@ -53,7 +55,8 @@ echo -e "\n${BOLD}${LRED}
 ░░████╔═████║░██╔══╝░░██╔══██╗██║░░██╗██║░░██║██╔═══╝░██║██║░░░░░██║░░██║░░░██║░░░
 ░░╚██╔╝░╚██╔╝░███████╗██████╦╝╚█████╔╝╚█████╔╝██║░░░░░██║███████╗╚█████╔╝░░░██║░░░
 ░░░╚═╝░░░╚═╝░░╚══════╝╚═════╝░░╚════╝░░╚════╝░╚═╝░░░░░╚═╝╚══════╝░╚════╝░░░░╚═╝░░░"
-echo -e "${NORMAL}${BOLD}${QTAB}${DTAB}${QSPACE}  [●] ${BLINK}${LGREEN}@h4r5h1t${DGRAY} | ${LGREEN}G!2m0${NORMAL}\n"    
+echo -e "${NORMAL}${BOLD}${QTAB}${DTAB}${DTAB}[●] ${LBLUE}Version: ${NORMAL}${VERSION}"
+echo -e "${NORMAL}${BOLD}${QTAB}${DTAB}${DTAB}[●] ${BLINK}${LGREEN}@h4r5h1t${DGRAY} | ${LGREEN}G!2m0${NORMAL}\n"    
 
 echo -e "${NORMAL}\n[${CROSS}] ${NORMAL}Warning: Use with caution. You are responsible for your own actions.${NORMAL}"
 echo -e "${NORMAL}[${CROSS}] ${NORMAL}Developers assume no liability and are not responsible for any misuse or damage cause by this tool.${NORMAL}\n"
@@ -72,6 +75,7 @@ usage() {
     echo -e "  -b        Add your server for BXSS [Default: False]"
     echo -e "  -x        Exclude out of scope domains [Default: False]"
     echo -e "  -s        Run only Subdomain Enumeration [Default: False]"
+    echo -e "  -v        Show version of the tool"
     echo -e "  -h        Show this help message"
     echo -e "\n${DGRAY}${BOLD}Example:${NORMAL}${GREEN}$0 ${NORMAL} -d ${YELLOW}domain.com${NORMAL} -o ${YELLOW}domain${NORMAL} -t ${YELLOW}333${NORMAL} -x ${YELLOW}exclude.txt${NORMAL} -b ${YELLOW}testServer.xss${NORMAL}"
     echo -e "Use ${LBLUE}https://xsshunter.com/${NORMAL} or ${LBLUE}https://interact.projectdiscovery.io/${NORMAL} to get your server" #server for performing blind injections we can use burpcollabator too
@@ -103,6 +107,9 @@ while getopts ":b:d:o:t:x:hs" arg; do
         
         b)
             bServer=${OPTARG} ;;
+  
+        v) 
+            echo -e "\n${DGRAY}${BOLD}Version:${NORMAL}${GREEN} webcopilot ${VERSION}${NORMAL}\n" && exit 1 ;;
         
         s)
             onlysub=True ;;
