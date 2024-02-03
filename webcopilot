@@ -2,7 +2,7 @@
 # Coded by: Harshit Raj Singh aKa G!2m0 @h4r5h1t
 # Inspired by: Garud and Pinaak by @ROX4R
 
-VERSION="1.0.0"
+VERSION="1.0.1"
 
 #Colors Output
 NORMAL="\e[0m"			
@@ -190,16 +190,16 @@ active_subenum() {
     
 subfiltering() {    
     echo -ne "\n${NORMAL}${BOLD}${YELLOW}[●] Subdomain Scanning:${NORMAL}${BOLD} Filtering out of scope subdomains\r"
-    cat temp/*.txt | grep -v "*" | sed '/@\|<BR>\|\_\|*/d' | grep "$domain" | anew -q subdomains/domains.txt
+    cat temp/*.txt | grep -v "*" | sed '/@\|<BR>\|\_\|*/d' | grep "$domain" | grep -E '^((http|https):\/\/)?([a-zA-Z0-9]([a-zA-Z0-9\-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{1,}(\/.*)?$' | anew -q subdomains/domains.txt
     sleep 1s
     if [ -f "$excl" ]
         then 
-            cat subdomains/domains.txt | grep -vf $exclude | sort -u | sed '/@\|<BR>\|\_\|*/d' | dnsx -retry 2 -r ~/wordlists/resolvers.txt  -t $threads -silent | anew -q subdomains/subdomains.txt
+            cat subdomains/domains.txt | grep -vf $exclude | sort -u | sed '/@\|<BR>\|\_\|*/d' | dnsx -retry 2 -r ~/wordlists/resolvers.txt -t $threads -silent | grep -E '^((http|https):\/\/)?([a-zA-Z0-9]([a-zA-Z0-9\-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{1,}(\/.*)?$' | anew -q subdomains/subdomains.txt
         else
-            cat subdomains/domains.txt | sort -u | sed '/@\|<BR>\|\_\|*/d'  | dnsx -retry 2 -r ~/wordlists/resolvers.txt  -t $threads -silent | anew -q subdomains/subdomains.txt
+            cat subdomains/domains.txt | sort -u | sed '/@\|<BR>\|\_\|*/d' | dnsx -retry 2 -r ~/wordlists/resolvers.txt  -t $threads -silent | grep -E '^((http|https):\/\/)?([a-zA-Z0-9]([a-zA-Z0-9\-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{1,}(\/.*)?$' | anew -q subdomains/subdomains.txt
     fi
     echo -ne "\n${NORMAL}${BOLD}${YELLOW}[●] Subdomain Scanning:${NORMAL}${BOLD} Filtering Alive subdomains\r"
-    cat subdomains/subdomains.txt | sort -u | uniq -u | httpx -threads $threads -tls-probe -csp-probe -silent -o subdomains/alivesub.txt &> /dev/null
+    cat subdomains/subdomains.txt | sort -u | uniq -u | httpx -threads $threads -tls-probe -csp-probe -silent | grep -E '^((http|https):\/\/)?([a-zA-Z0-9]([a-zA-Z0-9\-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{1,}(\/.*)?$' | anew -q subdomains/alivesub.txt &> /dev/null
     cat subdomains/alivesub.txt | sed -E 's/^\s*.*:\/\///g' | anew -q subdomains/alwihouthttp.txt
 }
  
