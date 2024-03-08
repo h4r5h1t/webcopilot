@@ -117,7 +117,7 @@ The `-s` command can be used for only subdomain enumerations (Active + Passive a
 ```bash
 g!2m0:~ webcopilot -d bugcrowd.com -o bugcrowd -s 
 ```
-The `-t` command can be used to add thrads to your scan for faster result.
+The `-t` command can be used to add threads to your scan for faster result.
 ```bash
 g!2m0:~ webcopilot -d bugcrowd.com -o bugcrowd -t 333 
 ```
