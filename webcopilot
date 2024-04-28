@@ -260,9 +260,9 @@ out_of_scope_subdomain_filtering() {
     sleep 1s
     if [ -f "$excl" ]
         then 
-            cat subdomains/domains.txt | grep -vf $exclude | sort -u | sed '/@\|<BR>\|\_\|*/d' | dnsx -retry 2 -r ~/wordlists/resolvers.txt  -t $threads -silent | anew -q subdomains/subdomains.txt
+            cat subdomains/domains.txt | grep -vf $exclude | sort -u | sed '/@\|<BR>\|\_\|*/d' | dnsx -retry 2 -r ~/wordlists/resolvers.txt -t $threads -silent | grep -E '^((http|https):\/\/)?([a-zA-Z0-9]([a-zA-Z0-9\-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{1,}(\/.*)?$' | anew -q subdomains/subdomains.txt
         else
-            cat subdomains/domains.txt | sort -u | sed '/@\|<BR>\|\_\|*/d'  | dnsx -retry 2 -r ~/wordlists/resolvers.txt  -t $threads -silent | anew -q subdomains/subdomains.txt
+            cat subdomains/domains.txt | sort -u | sed '/@\|<BR>\|\_\|*/d' | dnsx -retry 2 -r ~/wordlists/resolvers.txt  -t $threads -silent | grep -E '^((http|https):\/\/)?([a-zA-Z0-9]([a-zA-Z0-9\-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{1,}(\/.*)?$' | anew -q subdomains/subdomains.txt
     fi
     echo -ne "\n${NORMAL}${BOLD}${SORANGE}[●] Subdomain Filtering  -  ${NORMAL}${BOLD} Filtering out of scope subdomains is completed. ${NORMAL}\t Check: ${GREEN}$(echo '/subdomains/subdomains.txt' 2> /dev/null)"
 }
