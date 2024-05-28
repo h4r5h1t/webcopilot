@@ -308,6 +308,6 @@ WebCopilot is inspired from [Garud](https://github.com/R0X4R/Garud) & [Pinaak](h
 
 <table>
 <td>
-<b>Warning:</b> Developers assume no liability and are not responsible for any misuse or damage cause by this tool. So, please se with caution because you are responsible for your own actions.
+<b>Warning:</b> Developers assume no liability and are not responsible for any misuse or damage cause by this tool. So, please see with caution because you are responsible for your own actions.
 </td>
 </table>
