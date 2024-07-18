@@ -297,6 +297,28 @@ Time:    28-04-2024 17:16:49
 [+] Subdomain Takeover: 0
 [+] Nuclei: 0
 ```
+
+# Docker
+
+Build the docker image 
+
+```bash
+g!2m0:~ docker build -t webcopilot:2.0-beta .
+```
+
+Run the image
+Make sure that the directory ./output exists. it will be used to store the results
+- You can use all supported command line switches except -o. Instead mount the docker directory ``/copilot/output`` to a host directory 
+- An exclude file can be stored in a host folder mapped to /copilot/exclude. Make sure that the host folder is mapped to the container directory ``/copilot/exclude`` and that you this directory when running the container 
+
+```bash
+g!2m0:~ docker run -it -v $PWD/output:/copilot/output -v $PWD/exclude:/copilot/exclude webcopilot:2.0-beta -d <destination> -b <BXSS Server> -a -x /copilot/exclude/exclude.txt -t <number of threads>
+```
+
+
+
+
+
 ---
 
 ### Acknowledgement

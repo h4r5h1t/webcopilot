@@ -585,7 +585,11 @@ configs(){
 
     # Copy gf examples if they haven't been copied before
     if [ ! -d "~/.gf/examples" ]; then
-        cp -r ~/go/src/github.com/tomnomnom/gf/examples ~/.gf/
+        cp -r ~/go/src/github.com/tomnomnom/gf/examples ~/.gf/ 2> /dev/null
+
+        # ::stalpers::
+        # pipe to /dev/null to catch errors - causing Dockerfile build
+
     fi
 
     # Add gf completion to bashrc if it's not already there
@@ -646,7 +650,10 @@ main(){
     echo -e "${GREEN}[*]${NORMAL} All Tools are installed successfully"
     # echo -e "${YELLOW}[*]${NORMAL} Please configure notify API's in ${BOLD}${RED}~/.config/notify/provider-config.yaml${NORMAL} file"
     # echo -e "${YELLOW}[*]${NORMAL}${BOLD} Don't forget to add your API keys in the config file of the tools"
-    webcopilot -h 2> /dev/null
+
+    # ::stalpers::
+    # removed the call to webcopilot to avoid non-zero exit code
+    # webcopilot -h 2> /dev/null
 }
 
 while true; do
