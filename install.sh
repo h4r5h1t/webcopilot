@@ -302,7 +302,7 @@ python_tools(){
 
     if ! command -v uro &> /dev/null; then
         echo -e "${YELLOW}[*]${NORMAL} uro could not be found ${LCYAN}[*]${NORMAL} Installing uro"
-        pip3 install uro
+        pipx install uro
         if command -v uro &> /dev/null; then
             echo -e "${GREEN}[*]${NORMAL} uro is installed successfully"
         else
